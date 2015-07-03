@@ -3211,12 +3211,16 @@ int getTestCases() {
 
 
    currPath = newSATPath;
+   if(!countTotalConditions())
+  {orgPercent = 100 ;
+     percent =100 ;
+    }
+  else
+
+{ percent = (countCoveredConditions() * 100) / (2 * countTotalConditions());
 
 
-
-   if(countOrgTotalConditions() ==0){ orgPercent = 100 ;}
-   else
-   orgPercent = (countOrgCoveredConditions() * 100)/(2 * countOrgTotalConditions());
+   orgPercent = (countOrgCoveredConditions() * 100)/(2 * countOrgTotalConditions());}
    printf("COVERAGE = %f....\n",orgPercent);
 
    FILE *coveragefile = fopen("src/src/coverage.txt", "ab+");
@@ -3253,12 +3257,17 @@ if(savePath != ((void *)0))
 
     if (currPath == ((void *)0)) {
       print_conditions();
+       if(!countTotalConditions())
+  {orgPercent = 100 ;
+     percent =100 ;
+ }
+else
+
+{
+      percent = (countCoveredConditions() * 100) / (2 * countTotalConditions());
 
 
-
-      if(countOrgTotalConditions() ==0){ orgPercent = 100 ;}
-      else
-      orgPercent = (countOrgCoveredConditions() * 100)/(2 * countOrgTotalConditions());
+      orgPercent = (countOrgCoveredConditions() * 100)/(2 * countOrgTotalConditions());}
       printf("COVERAGE = %f....\n",orgPercent);
 
       FILE *coveragefile = fopen("src/src/coverage.txt", "ab+");
@@ -3284,7 +3293,7 @@ if(savePath != ((void *)0))
     printf("Error opening file!\n");
     exit(1);
   }
-# 535 "src/src/cdgWrapper.c"
+# 544 "src/src/cdgWrapper.c"
   while (curr != ((void *)0)) {
     if (curr->id == 0)
       break;

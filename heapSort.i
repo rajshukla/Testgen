@@ -1,9 +1,9 @@
-# 1 "test.c"
+# 1 "heapSort.c"
 # 1 "/home/raj/Desktop/RAJ/TestgenRepo-Testgen/Testgen/Testgen_Sonam/Testgen//"
 # 1 "<command-line>"
 # 1 "/usr/include/stdc-predef.h" 1 3 4
 # 1 "<command-line>" 2
-# 1 "test.c"
+# 1 "heapSort.c"
 # 1 "/usr/include/stdio.h" 1 3 4
 # 27 "/usr/include/stdio.h" 3 4
 # 1 "/usr/include/features.h" 1 3 4
@@ -834,40 +834,69 @@ extern int ftrylockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)
 extern void funlockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
 # 943 "/usr/include/stdio.h" 3 4
 
-# 2 "test.c" 2
-# 1 "/usr/include/assert.h" 1 3 4
-# 66 "/usr/include/assert.h" 3 4
+# 2 "heapSort.c" 2
 
 
+void heapsort(int[],int);
+void heapify(int[],int);
+void adjust(int[],int);
+# 30 "heapSort.c"
+void heapSort(int a[],int n)
+{
+ int i,t;
 
-extern void __assert_fail (const char *__assertion, const char *__file,
-      unsigned int __line, const char *__function)
-     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
+ heapify(a,n);
 
+ for(i=n-1;i>0;i--)
+ {
+  t = a[0];
+  a[0] = a[i];
+  a[i] = t;
+  adjust(a,i);
+ }
+}
 
-extern void __assert_perror_fail (int __errnum, const char *__file,
-      unsigned int __line, const char *__function)
-     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
+void heapify(int a[],int n)
+{
+ int k,i,j,item;
 
+ for(k=1;k<n;k++)
+ {
+  item = a[k];
+  i = k;
+  j = (i-1)/2;
 
+  while((i>0)&&(item>a[j]))
+  {
+   a[i] = a[j];
+   i = j;
+   j = (i-1)/2;
+  }
+  a[i] = item;
+ }
+}
 
+void adjust(int a[],int n)
+{
+ int i,j,item;
 
-extern void __assert (const char *__assertion, const char *__file, int __line)
-     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
+ j = 0;
+ item = a[j];
+ i = 2*j+1;
 
-
-
-# 3 "test.c" 2
-
-    int main() {
-    int a, b;
-
-    printf("Input two integers to divide\n");
-    scanf("%d%d", &a, &b);
-
-
-
-    printf("%d/%d = %.2f\n", a, b, a/(float)b);
-
-    return 0;
-    }
+ while(i<=n-1)
+ {
+  if(i+1 <= n-1)
+   if(a[i] <a[i+1])
+    i++;
+  if(item<a[i])
+  {
+   a[j] = a[i];
+   j = i;
+   i = 2*j+1;
+  }
+  else
+   i=n;
+ }
+ a[j] = item;
+}

@@ -1,9 +1,9 @@
-# 1 "test.c"
+# 1 "example1.c"
 # 1 "/home/raj/Desktop/RAJ/TestgenRepo-Testgen/Testgen/Testgen_Sonam/Testgen//"
 # 1 "<command-line>"
 # 1 "/usr/include/stdc-predef.h" 1 3 4
 # 1 "<command-line>" 2
-# 1 "test.c"
+# 1 "example1.c"
 # 1 "/usr/include/stdio.h" 1 3 4
 # 27 "/usr/include/stdio.h" 3 4
 # 1 "/usr/include/features.h" 1 3 4
@@ -834,40 +834,20 @@ extern int ftrylockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)
 extern void funlockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
 # 943 "/usr/include/stdio.h" 3 4
 
-# 2 "test.c" 2
-# 1 "/usr/include/assert.h" 1 3 4
-# 66 "/usr/include/assert.h" 3 4
+# 2 "example1.c" 2
 
+int func(int x,int y){
+  if(y <= 1){
+    return 1;
+  }
+  else{
+    return x * func(x-1,y);
+  }
+}
 
-
-extern void __assert_fail (const char *__assertion, const char *__file,
-      unsigned int __line, const char *__function)
-     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
-
-
-extern void __assert_perror_fail (int __errnum, const char *__file,
-      unsigned int __line, const char *__function)
-     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
-
-
-
-
-extern void __assert (const char *__assertion, const char *__file, int __line)
-     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
-
-
-
-# 3 "test.c" 2
-
-    int main() {
-    int a, b;
-
-    printf("Input two integers to divide\n");
-    scanf("%d%d", &a, &b);
-
-
-
-    printf("%d/%d = %.2f\n", a, b, a/(float)b);
-
-    return 0;
-    }
+int main(){
+  int a = 5,b=3;
+  int c = func(a+b,a-b);
+  printf("%d\n",c);
+  return 0;
+}

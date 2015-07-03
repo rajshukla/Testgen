@@ -2838,20 +2838,20 @@ void directPathConditions(void)
   int tmp___0 ;
   int tmp___1 ;
   int tmp___2 ;
-  int tmp___3 ;
   FILE *coveragefile ;
-  FILE *tmp___4 ;
+  FILE *tmp___3 ;
   char *fpc ;
-  char *tmp___5 ;
-  int tmp___6 ;
-  void *tmp___7 ;
+  char *tmp___4 ;
+  int tmp___5 ;
+  void *tmp___6 ;
+  int tmp___7 ;
   int tmp___8 ;
   int tmp___9 ;
   int tmp___10 ;
   int tmp___11 ;
   int tmp___12 ;
-  int tmp___13 ;
-  struct treeNode *tmp___14 ;
+  struct treeNode *tmp___13 ;
+  int tmp___14 ;
   int tmp___15 ;
   int tmp___16 ;
   int tmp___17 ;
@@ -2859,29 +2859,22 @@ void directPathConditions(void)
   int tmp___19 ;
   int tmp___20 ;
   int tmp___21 ;
-  int tmp___22 ;
-  struct treeNode *tmp___23 ;
-  char const   *tmp___24 ;
-  int tmp___25 ;
+  struct treeNode *tmp___22 ;
+  char const   *tmp___23 ;
+  int tmp___24 ;
 
   {
   atleastOneConditionNotCovered = 0;
   i___0 = 1;
-  tmp___3 = countTotalConditions();
-  if (tmp___3) {
-    tmp = countCoveredConditions();
-    tmp___0 = countTotalConditions();
-    percent = (float )((tmp * 100) / (2 * tmp___0));
-    tmp___1 = countOrgCoveredConditions();
-    tmp___2 = countOrgTotalConditions();
-    orgPercent = (float )((tmp___1 * 100) / (2 * tmp___2));
-  } else {
-    orgPercent = (float )100;
-    percent = (float )100;
-  }
+  tmp = countCoveredConditions();
+  tmp___0 = countTotalConditions();
+  percent = (float )((tmp * 100) / (2 * tmp___0));
+  tmp___1 = countOrgCoveredConditions();
+  tmp___2 = countOrgTotalConditions();
+  orgPercent = (float )((tmp___1 * 100) / (2 * tmp___2));
   printf((char const   * __restrict  )"COVERAGE = %f....\n", (double )orgPercent);
-  tmp___4 = fopen((char const   * __restrict  )"src/src/coverage.txt", (char const   * __restrict  )"ab+");
-  coveragefile = tmp___4;
+  tmp___3 = fopen((char const   * __restrict  )"src/src/coverage.txt", (char const   * __restrict  )"ab+");
+  coveragefile = tmp___3;
   fprintf((FILE * __restrict  )coveragefile, (char const   * __restrict  )"%.1f\n",
           (double )orgPercent);
   if (queue.totalElements == 0) {
@@ -2892,12 +2885,12 @@ void directPathConditions(void)
     emptyQueue();
     return;
   }
-  tmp___5 = getFrontPathCondition();
-  fpc = tmp___5;
+  tmp___4 = getFrontPathCondition();
+  fpc = tmp___4;
   fpc = (char *)((void *)0);
   free((void *)fpc);
-  tmp___6 = countTotalConditions();
-  if (tmp___6) {
+  tmp___5 = countTotalConditions();
+  if (tmp___5) {
     if (execution_flag == 1) {
       if (previousRunCoverage != percent) {
         countNoNewConditionAttempts = 0;
@@ -2913,8 +2906,8 @@ void directPathConditions(void)
     }
     previousRunCoverage = percent;
   }
-  tmp___7 = malloc((size_t )1500);
-  newPathCondition = (char *)tmp___7;
+  tmp___6 = malloc((size_t )1500);
+  newPathCondition = (char *)tmp___6;
   *newPathCondition = (char)0;
   if (check_position >= 1) {
     if ((unsigned long )(queue.front)->levelptr[check_level + 1] == (unsigned long )((void *)0)) {
@@ -2935,25 +2928,25 @@ void directPathConditions(void)
     if (check_position == 0) {
       while ((unsigned long )curr != (unsigned long )((void *)0)) {
         if (curr->outcome) {
-          tmp___8 = checkForAllConstants(curr->fexp);
-          if (! tmp___8) {
+          tmp___7 = checkForAllConstants(curr->fexp);
+          if (! tmp___7) {
             strcat((char * __restrict  )newPathCondition, (char const   * __restrict  )curr->fexp);
             strcat((char * __restrict  )newPathCondition, (char const   * __restrict  )"##");
           }
-          tmp___9 = getSid(curr);
-          tmp___10 = getBranchInfo(tmp___9, 0);
-          if (! tmp___10) {
+          tmp___8 = getSid(curr);
+          tmp___9 = getBranchInfo(tmp___8, 0);
+          if (! tmp___9) {
             atleastOneConditionNotCovered = 1;
           }
         } else {
-          tmp___11 = checkForAllConstants(curr->texp);
-          if (! tmp___11) {
+          tmp___10 = checkForAllConstants(curr->texp);
+          if (! tmp___10) {
             strcat((char * __restrict  )newPathCondition, (char const   * __restrict  )curr->texp);
             strcat((char * __restrict  )newPathCondition, (char const   * __restrict  )"##");
           }
-          tmp___12 = getSid(curr);
-          tmp___13 = getBranchInfo(tmp___12, 1);
-          if (! tmp___13) {
+          tmp___11 = getSid(curr);
+          tmp___12 = getBranchInfo(tmp___11, 1);
+          if (! tmp___12) {
             atleastOneConditionNotCovered = 1;
           }
         }
@@ -2995,8 +2988,8 @@ void directPathConditions(void)
         return;
       }
     }
-    tmp___14 = getFchild(curr);
-    if ((unsigned long )tmp___14 == (unsigned long )((void *)0)) {
+    tmp___13 = getFchild(curr);
+    if ((unsigned long )tmp___13 == (unsigned long )((void *)0)) {
       check_position ++;
       if ((unsigned long )newPathCondition != (unsigned long )((void *)0)) {
         newPathCondition = (char *)((void *)0);
@@ -3021,25 +3014,25 @@ void directPathConditions(void)
         break;
       }
       if (curr->outcome) {
-        tmp___15 = checkForAllConstants(curr->fexp);
-        if (! tmp___15) {
+        tmp___14 = checkForAllConstants(curr->fexp);
+        if (! tmp___14) {
           strcat((char * __restrict  )newPathCondition, (char const   * __restrict  )curr->fexp);
           strcat((char * __restrict  )newPathCondition, (char const   * __restrict  )"##");
         }
-        tmp___16 = getSid(curr);
-        tmp___17 = getBranchInfo(tmp___16, 0);
-        if (! tmp___17) {
+        tmp___15 = getSid(curr);
+        tmp___16 = getBranchInfo(tmp___15, 0);
+        if (! tmp___16) {
           atleastOneConditionNotCovered = 1;
         }
       } else {
-        tmp___18 = checkForAllConstants(curr->texp);
-        if (! tmp___18) {
+        tmp___17 = checkForAllConstants(curr->texp);
+        if (! tmp___17) {
           strcat((char * __restrict  )newPathCondition, (char const   * __restrict  )curr->texp);
           strcat((char * __restrict  )newPathCondition, (char const   * __restrict  )"##");
         }
-        tmp___19 = getSid(curr);
-        tmp___20 = getBranchInfo(tmp___19, 1);
-        if (! tmp___20) {
+        tmp___18 = getSid(curr);
+        tmp___19 = getBranchInfo(tmp___18, 1);
+        if (! tmp___19) {
           atleastOneConditionNotCovered = 1;
         }
       }
@@ -3048,8 +3041,8 @@ void directPathConditions(void)
     curr = parent;
     while ((unsigned long )curr != (unsigned long )((void *)0)) {
       if (curr->outcome) {
-        tmp___22 = checkForAllConstants(curr->texp);
-        if (tmp___22) {
+        tmp___21 = checkForAllConstants(curr->texp);
+        if (tmp___21) {
           goto _L___1;
         } else {
           strcat((char * __restrict  )newPathCondition, (char const   * __restrict  )curr->texp);
@@ -3057,8 +3050,8 @@ void directPathConditions(void)
         }
       } else {
         _L___1: /* CIL Label */ 
-        tmp___21 = checkForAllConstants(curr->fexp);
-        if (! tmp___21) {
+        tmp___20 = checkForAllConstants(curr->fexp);
+        if (! tmp___20) {
           strcat((char * __restrict  )newPathCondition, (char const   * __restrict  )curr->fexp);
           strcat((char * __restrict  )newPathCondition, (char const   * __restrict  )"##");
         }
@@ -3066,8 +3059,8 @@ void directPathConditions(void)
       curr = getNodeParent(curr);
     }
     curr = (queue.front)->levelptr[check_level];
-    tmp___23 = getNextnode(curr);
-    if ((unsigned long )tmp___23 == (unsigned long )((void *)0)) {
+    tmp___22 = getNextnode(curr);
+    if ((unsigned long )tmp___22 == (unsigned long )((void *)0)) {
       check_level ++;
       check_position = 1;
     } else {
@@ -3080,14 +3073,14 @@ void directPathConditions(void)
       getPrint();
       writeProgramSVariables();
       if ((unsigned long )newPathCondition != (unsigned long )((void *)0)) {
-        tmp___24 = (char const   *)newPathCondition;
+        tmp___23 = (char const   *)newPathCondition;
       } else {
-        tmp___24 = "null";
+        tmp___23 = "null";
       }
-      printf((char const   * __restrict  )"Path Condition : %s\n", tmp___24);
+      printf((char const   * __restrict  )"Path Condition : %s\n", tmp___23);
       writeConditionsToFile(newPathCondition);
-      tmp___25 = getOutputFromConstraintSolver();
-      if (! tmp___25) {
+      tmp___24 = getOutputFromConstraintSolver();
+      if (! tmp___24) {
         remove("src/src/printTest.smt");
         newPathCondition = (char *)((void *)0);
         free((void *)newPathCondition);
@@ -15559,42 +15552,35 @@ int getTestCases(void)
   int tmp___0 ;
   int tmp___1 ;
   int tmp___2 ;
-  int tmp___3 ;
   FILE *coveragefile ;
-  FILE *tmp___4 ;
+  FILE *tmp___3 ;
+  int tmp___4 ;
   int tmp___5 ;
   int tmp___6 ;
   int tmp___7 ;
-  int tmp___8 ;
   FILE *coveragefile___0 ;
-  FILE *tmp___9 ;
+  FILE *tmp___8 ;
   FILE *fp ;
-  FILE *tmp___10 ;
+  FILE *tmp___9 ;
+  int tmp___10 ;
   int tmp___11 ;
   int tmp___12 ;
   int tmp___13 ;
   int tmp___14 ;
-  int tmp___15 ;
 
   {
   atleastOneConditionNotCovered = 0;
   i___0 = 0;
   currPath = newSATPath;
-  tmp___3 = countTotalConditions();
-  if (tmp___3) {
-    tmp = countCoveredConditions();
-    tmp___0 = countTotalConditions();
-    percent = (float )((tmp * 100) / (2 * tmp___0));
-    tmp___1 = countOrgCoveredConditions();
-    tmp___2 = countOrgTotalConditions();
-    orgPercent = (float )((tmp___1 * 100) / (2 * tmp___2));
-  } else {
-    orgPercent = (float )100;
-    percent = (float )100;
-  }
+  tmp = countCoveredConditions();
+  tmp___0 = countTotalConditions();
+  percent = (float )((tmp * 100) / (2 * tmp___0));
+  tmp___1 = countOrgCoveredConditions();
+  tmp___2 = countOrgTotalConditions();
+  orgPercent = (float )((tmp___1 * 100) / (2 * tmp___2));
   printf((char const   * __restrict  )"COVERAGE = %f....\n", (double )orgPercent);
-  tmp___4 = fopen((char const   * __restrict  )"src/src/coverage.txt", (char const   * __restrict  )"ab+");
-  coveragefile = tmp___4;
+  tmp___3 = fopen((char const   * __restrict  )"src/src/coverage.txt", (char const   * __restrict  )"ab+");
+  coveragefile = tmp___3;
   fprintf((FILE * __restrict  )coveragefile, (char const   * __restrict  )"%.1f\n",
           (double )orgPercent);
   if ((unsigned long )savePath != (unsigned long )((void *)0)) {
@@ -15616,15 +15602,15 @@ int getTestCases(void)
     currPath = currPath->next;
     if ((unsigned long )currPath == (unsigned long )((void *)0)) {
       print_conditions();
-      tmp___5 = countCoveredConditions();
-      tmp___6 = countTotalConditions();
-      percent = (float )((tmp___5 * 100) / (2 * tmp___6));
-      tmp___7 = countOrgCoveredConditions();
-      tmp___8 = countOrgTotalConditions();
-      orgPercent = (float )((tmp___7 * 100) / (2 * tmp___8));
+      tmp___4 = countCoveredConditions();
+      tmp___5 = countTotalConditions();
+      percent = (float )((tmp___4 * 100) / (2 * tmp___5));
+      tmp___6 = countOrgCoveredConditions();
+      tmp___7 = countOrgTotalConditions();
+      orgPercent = (float )((tmp___6 * 100) / (2 * tmp___7));
       printf((char const   * __restrict  )"COVERAGE = %f....\n", (double )orgPercent);
-      tmp___9 = fopen((char const   * __restrict  )"src/src/coverage.txt", (char const   * __restrict  )"ab+");
-      coveragefile___0 = tmp___9;
+      tmp___8 = fopen((char const   * __restrict  )"src/src/coverage.txt", (char const   * __restrict  )"ab+");
+      coveragefile___0 = tmp___8;
       fprintf((FILE * __restrict  )coveragefile___0, (char const   * __restrict  )"%.1f\n",
               (double )orgPercent);
       CDG_Module = 0;
@@ -15637,8 +15623,8 @@ int getTestCases(void)
   remove("src/src/printTest.smt");
   getPrint();
   writeProgramSVariables();
-  tmp___10 = fopen((char const   * __restrict  )"src/src/printTest.smt", (char const   * __restrict  )"a");
-  fp = tmp___10;
+  tmp___9 = fopen((char const   * __restrict  )"src/src/printTest.smt", (char const   * __restrict  )"a");
+  fp = tmp___9;
   if ((unsigned long )fp == (unsigned long )((void *)0)) {
     printf((char const   * __restrict  )"Error opening file!\n");
     exit(1);
@@ -15647,25 +15633,25 @@ int getTestCases(void)
     if (curr->id == 0) {
       break;
     }
-    tmp___15 = getOutcome(curr);
-    if (tmp___15) {
-      tmp___11 = checkForAllConstants(curr->expr);
-      if (! tmp___11) {
+    tmp___14 = getOutcome(curr);
+    if (tmp___14) {
+      tmp___10 = checkForAllConstants(curr->expr);
+      if (! tmp___10) {
         fprintf((FILE * __restrict  )fp, (char const   * __restrict  )"  :assumption %s\n",
                 curr->expr);
       }
-      tmp___12 = getBranchInfo(curr->id, 1);
-      if (! tmp___12) {
+      tmp___11 = getBranchInfo(curr->id, 1);
+      if (! tmp___11) {
         atleastOneConditionNotCovered = 1;
       }
     } else {
-      tmp___13 = checkForAllConstants(curr->expr);
-      if (! tmp___13) {
+      tmp___12 = checkForAllConstants(curr->expr);
+      if (! tmp___12) {
         fprintf((FILE * __restrict  )fp, (char const   * __restrict  )"  :assumption %s\n",
                 curr->expr);
       }
-      tmp___14 = getBranchInfo(curr->id, 0);
-      if (! tmp___14) {
+      tmp___13 = getBranchInfo(curr->id, 0);
+      if (! tmp___13) {
         atleastOneConditionNotCovered = 1;
       }
     }
@@ -15793,8 +15779,9 @@ void stackPeek(Stack *s , void *element )
 }
 }
 #pragma merger("0","./ipaRecursive.i","-g,-g")
-#pragma merger("0","./test.i","-g,-g")
-extern int scanf(char const   * __restrict  __format  , ...)  __asm__("__isoc99_scanf")  ;
+#pragma merger("0","./heapSort.i","-g,-g")
+void heapify(int *heapify_a , int heapify_n ) ;
+void adjust(int *adjust_a , int adjust_n ) ;
 void createCDG(void) 
 { 
 
@@ -15804,8 +15791,16 @@ void createCDG(void)
   addtoCDGnode(1, 0, 1);
   addtoCDGnode(2, 0, 1);
   addtoCDGnode(3, 0, 1);
-  addtoCDGnode(4, 0, 1);
+  setArray(3, "(> i___0 0)");
+  addtoCDGnode(4, 3, 1);
   addtoCDGnode(5, 0, 1);
+  setArray(5, "(> i___0 0)");
+  addtoCDGnode(5, 0, 1);
+  setArray(5, "(> i___0 0)");
+  addtoCDGnode(6, 5, 1);
+  addtoCDGnode(7, 0, 1);
+  addtoCDGnode(7, 0, 1);
+  addtoCDGnode(8, 0, 1);
 }
 }
 void isCopyOfHolder(void) 
@@ -15813,7 +15808,8 @@ void isCopyOfHolder(void)
 
 
   {
-
+  isCopyOf(3, 3);
+  isCopyOf(5, 3);
 }
 }
 void createSidTable(void) 
@@ -15821,54 +15817,342 @@ void createSidTable(void)
 
 
   {
-
+  add_condition(3, "(> i___0 0)", "(not (> i___0 0))", 0, 0);
+  add_condition(5, "(> i___0 0)", "(not (> i___0 0))", 0, 0);
 }
 }
 struct arguments {
-   int a ;
-   int b ;
+   int *a ;
+   int n ;
 };
 struct arguments argvar ;
-int main1(int a , int b ) 
+void heapSort(int *a , int n ) 
 { 
-  int __cil_tmp3 ;
+  int i___0 ;
+  int t ;
   int exp_outcome ;
   int overall_outcome ;
-  int __cil_tmp6 ;
-  char *__cil_tmp7 ;
+  int __cil_tmp7 ;
+  char *__cil_tmp8 ;
   char *symName ;
   void *addr ;
   char in[15] ;
 
   {
-  __cil_tmp7 = malloc(100 * sizeof(char ));
-  add_entryToSTable("__cil_tmp7", "Function", & __cil_tmp7, & __cil_tmp7, -1);
-  sprintf(__cil_tmp7, "\t%d\t%d\n", a, b);
-  printTestCase("test_main1_1435907048.tc", __cil_tmp7);
-  add_entryToSTable("b", "s1", & b, & b, 1);
-  add_entryToSTable("a", "s0", & a, & a, 1);
-  printf((char const   * __restrict  )"Input two integers to divide\n");
-  printf((char const   * __restrict  )"%d/%d = %.2f\n", a, b, (double )((float )a / (float )b));
+  __cil_tmp8 = malloc(100 * sizeof(char ));
+  add_entryToSTable("__cil_tmp8", "Function", & __cil_tmp8, & __cil_tmp8, -1);
+  sprintf(__cil_tmp8, "\t%d\t%d\t%d\t%d\t%d\t%d\n", a[0], a[1], a[2], a[3], a[4],
+          n);
+  printTestCase("heapSort_heapSort_1435904830.tc", __cil_tmp8);
+  add_entryToSTable("n", "s1", & n, & n, 1);
+  add_entryToArraySTable("a", 0, "a_0", a, a, 1);
+  funcEntry("(int *,heapify_a,array,a)#(int,heapify_n,variable,n)", "heapify_k heapify_i___0 heapify_j heapify_item",
+            "heapify");
+  heapify(a, n);
+  funcExit();
+  i___0 = n - 1;
+  handleAssignmentSymbolically("i___0", "(- n 1)", & i___0, & i___0, 1);
   {
-  __cil_tmp3 = 0;
-  add_entryToSTable("__cil_tmp3", "Constant", & __cil_tmp3, & __cil_tmp3, 1);
-  __cil_tmp6 = isNotQueueEmpty();
-  if (__cil_tmp6) {
+  {
+  exp_outcome = i___0 > 0;
+  handleAssignmentSymbolically("exp_outcome", "(> i___0 0)", & exp_outcome, & exp_outcome,
+                               1);
+  overall_outcome = (int )getConditionalOutcome(3, exp_outcome);
+  if (overall_outcome) {
+    setBranchInfo(3, 1, 0);
+    setTrueExpr(3, "(> i___0 0)");
+    setFalseExpr(3, "(not (> i___0 0))");
+    addToTree(3, 1, "(> i___0 0)", "(not (> i___0 0))", 0, 1);
+    delete_allVariableTableEntry();
+    t = *(a + 0);
+    addEntryToVariableTable("*(a + 0)", 0);
+    add_entryToArraySTable("a", 0, "a10", a + 0, a + 0, 1);
+    handleAssignmentSymbolically("t", "*(a + 0)", & *(a + 0), & *(a + 0), 1);
+    *(a + 0) = *(a + i___0);
+    addEntryToVariableTable("*(a + i___0)", i___0);
+    add_entryToArraySTable("a", i___0, "a11", a + i___0, a + i___0, 1);
+    handleArraySymbolically("a", 0, "*(a + i___0)", a + 0, a + 0, 1);
+    *(a + i___0) = t;
+    handleArraySymbolically("a", i___0, "t", a + i___0, a + i___0, 1);
+    funcEntry("(int *,adjust_a,array,a)#(int,adjust_n,variable,i___0)", "adjust_i___0 adjust_j adjust_item",
+              "adjust");
+    adjust(a, i___0);
+    funcExit();
+    i___0 --;
+    handleAssignmentSymbolically("i___0", "(- i___0 1)", & i___0, & i___0, 1);
+  } else {
+    setBranchInfo(3, 0, 1);
+    setTrueExpr(3, "(> i___0 0)");
+    setFalseExpr(3, "(not (> i___0 0))");
+    addToTree(3, 1, "(> i___0 0)", "(not (> i___0 0))", 0, 0);
+    delete_allVariableTableEntry();
+  }
+  }
+  {
+  exp_outcome = i___0 > 0;
+  handleAssignmentSymbolically("exp_outcome", "(> i___0 0)", & exp_outcome, & exp_outcome,
+                               1);
+  overall_outcome = (int )getConditionalOutcome(5, exp_outcome);
+  if (overall_outcome) {
+    setBranchInfo(5, 1, 0);
+    setTrueExpr(5, "(> i___0 0)");
+    setFalseExpr(5, "(not (> i___0 0))");
+    addToTree(5, 1, "(> i___0 0)", "(not (> i___0 0))", 0, 1);
+    delete_allVariableTableEntry();
+    t = *(a + 0);
+    addEntryToVariableTable("*(a + 0)", 0);
+    add_entryToArraySTable("a", 0, "a12", a + 0, a + 0, 1);
+    handleAssignmentSymbolically("t", "*(a + 0)", & *(a + 0), & *(a + 0), 1);
+    *(a + 0) = *(a + i___0);
+    addEntryToVariableTable("*(a + i___0)", i___0);
+    add_entryToArraySTable("a", i___0, "a13", a + i___0, a + i___0, 1);
+    handleArraySymbolically("a", 0, "*(a + i___0)", a + 0, a + 0, 1);
+    *(a + i___0) = t;
+    handleArraySymbolically("a", i___0, "t", a + i___0, a + i___0, 1);
+    funcEntry("(int *,adjust_a,array,a)#(int,adjust_n,variable,i___0)", "adjust_i___0 adjust_j adjust_item",
+              "adjust");
+    adjust(a, i___0);
+    funcExit();
+    i___0 --;
+    handleAssignmentSymbolically("i___0", "(- i___0 1)", & i___0, & i___0, 1);
+  } else {
+    setBranchInfo(5, 0, 1);
+    setTrueExpr(5, "(> i___0 0)");
+    setFalseExpr(5, "(not (> i___0 0))");
+    addToTree(5, 1, "(> i___0 0)", "(not (> i___0 0))", 0, 0);
+    delete_allVariableTableEntry();
+  }
+  }
+  }
+  __cil_tmp7 = isNotQueueEmpty();
+  if (__cil_tmp7) {
     enQueue();
     directPathConditions();
     delete_allSTableEntry();
     delete_allStructTableEntry();
-    main1(a, b);
+    heapSort(a, n);
   } else {
-    __cil_tmp6 = startCDG();
-    add_entryToSTable("__cil_tmp6", "Function", & __cil_tmp6, & __cil_tmp6, 1);
-    if (__cil_tmp6) {
-      __cil_tmp6 = getTestCases();
-      main1(a, b);
+    __cil_tmp7 = startCDG();
+    add_entryToSTable("__cil_tmp7", "Function", & __cil_tmp7, & __cil_tmp7, 1);
+    if (__cil_tmp7) {
+      __cil_tmp7 = getTestCases();
+      heapSort(a, n);
     }
   }
-  return (__cil_tmp3);
+  return;
+}
+}
+void heapify(int *heapify_a , int heapify_n ) 
+{ 
+  int heapify_k ;
+  int heapify_i___0 ;
+  int heapify_j ;
+  int heapify_item ;
+  char *symName ;
+  void *addr ;
+  char in[15] ;
+
+  {
+  heapify_k = 1;
+  add_entryToSTable("heapify_k", "Constant", & heapify_k, & heapify_k, 1);
+  {
+  if (heapify_k < heapify_n) {
+    heapify_item = *(heapify_a + heapify_k);
+    addEntryToVariableTable("*(heapify_a + heapify_k)", heapify_k);
+    add_entryToArraySTable("heapify_a", heapify_k, "heapify_a14", heapify_a + heapify_k,
+                           heapify_a + heapify_k, 1);
+    handleAssignmentSymbolically("heapify_item", "*(heapify_a + heapify_k)", & *(heapify_a + heapify_k),
+                                 & *(heapify_a + heapify_k), 1);
+    heapify_i___0 = heapify_k;
+    handleAssignmentSymbolically("heapify_i___0", "heapify_k", & heapify_k, & heapify_k,
+                                 1);
+    heapify_j = (heapify_i___0 - 1) / 2;
+    handleAssignmentSymbolically("heapify_j", "(/ (- heapify_i___0 1) 2)", & heapify_j,
+                                 & heapify_j, 1);
+    {
+    if (heapify_i___0 > 0) {
+      if (heapify_item > *(heapify_a + heapify_j)) {
+        *(heapify_a + heapify_i___0) = *(heapify_a + heapify_j);
+        addEntryToVariableTable("*(heapify_a + heapify_j)", heapify_j);
+        add_entryToArraySTable("heapify_a", heapify_j, "heapify_a15", heapify_a + heapify_j,
+                               heapify_a + heapify_j, 1);
+        handleArraySymbolically("heapify_a", heapify_i___0, "*(heapify_a + heapify_j)",
+                                heapify_a + heapify_i___0, heapify_a + heapify_i___0,
+                                1);
+        heapify_i___0 = heapify_j;
+        handleAssignmentSymbolically("heapify_i___0", "heapify_j", & heapify_j, & heapify_j,
+                                     1);
+        heapify_j = (heapify_i___0 - 1) / 2;
+        handleAssignmentSymbolically("heapify_j", "(/ (- heapify_i___0 1) 2)", & heapify_j,
+                                     & heapify_j, 1);
+      }
+    }
+    if (heapify_i___0 > 0) {
+      if (heapify_item > *(heapify_a + heapify_j)) {
+        *(heapify_a + heapify_i___0) = *(heapify_a + heapify_j);
+        addEntryToVariableTable("*(heapify_a + heapify_j)", heapify_j);
+        add_entryToArraySTable("heapify_a", heapify_j, "heapify_a16", heapify_a + heapify_j,
+                               heapify_a + heapify_j, 1);
+        handleArraySymbolically("heapify_a", heapify_i___0, "*(heapify_a + heapify_j)",
+                                heapify_a + heapify_i___0, heapify_a + heapify_i___0,
+                                1);
+        heapify_i___0 = heapify_j;
+        handleAssignmentSymbolically("heapify_i___0", "heapify_j", & heapify_j, & heapify_j,
+                                     1);
+        heapify_j = (heapify_i___0 - 1) / 2;
+        handleAssignmentSymbolically("heapify_j", "(/ (- heapify_i___0 1) 2)", & heapify_j,
+                                     & heapify_j, 1);
+      }
+    }
+    }
+    *(heapify_a + heapify_i___0) = heapify_item;
+    handleArraySymbolically("heapify_a", heapify_i___0, "heapify_item", heapify_a + heapify_i___0,
+                            heapify_a + heapify_i___0, 1);
+    heapify_k ++;
+    handleAssignmentSymbolically("heapify_k", "(+ heapify_k 1)", & heapify_k, & heapify_k,
+                                 1);
   }
+  if (heapify_k < heapify_n) {
+    heapify_item = *(heapify_a + heapify_k);
+    addEntryToVariableTable("*(heapify_a + heapify_k)", heapify_k);
+    add_entryToArraySTable("heapify_a", heapify_k, "heapify_a17", heapify_a + heapify_k,
+                           heapify_a + heapify_k, 1);
+    handleAssignmentSymbolically("heapify_item", "*(heapify_a + heapify_k)", & *(heapify_a + heapify_k),
+                                 & *(heapify_a + heapify_k), 1);
+    heapify_i___0 = heapify_k;
+    handleAssignmentSymbolically("heapify_i___0", "heapify_k", & heapify_k, & heapify_k,
+                                 1);
+    heapify_j = (heapify_i___0 - 1) / 2;
+    handleAssignmentSymbolically("heapify_j", "(/ (- heapify_i___0 1) 2)", & heapify_j,
+                                 & heapify_j, 1);
+    {
+    if (heapify_i___0 > 0) {
+      if (heapify_item > *(heapify_a + heapify_j)) {
+        *(heapify_a + heapify_i___0) = *(heapify_a + heapify_j);
+        addEntryToVariableTable("*(heapify_a + heapify_j)", heapify_j);
+        add_entryToArraySTable("heapify_a", heapify_j, "heapify_a18", heapify_a + heapify_j,
+                               heapify_a + heapify_j, 1);
+        handleArraySymbolically("heapify_a", heapify_i___0, "*(heapify_a + heapify_j)",
+                                heapify_a + heapify_i___0, heapify_a + heapify_i___0,
+                                1);
+        heapify_i___0 = heapify_j;
+        handleAssignmentSymbolically("heapify_i___0", "heapify_j", & heapify_j, & heapify_j,
+                                     1);
+        heapify_j = (heapify_i___0 - 1) / 2;
+        handleAssignmentSymbolically("heapify_j", "(/ (- heapify_i___0 1) 2)", & heapify_j,
+                                     & heapify_j, 1);
+      }
+    }
+    if (heapify_i___0 > 0) {
+      if (heapify_item > *(heapify_a + heapify_j)) {
+        *(heapify_a + heapify_i___0) = *(heapify_a + heapify_j);
+        addEntryToVariableTable("*(heapify_a + heapify_j)", heapify_j);
+        add_entryToArraySTable("heapify_a", heapify_j, "heapify_a19", heapify_a + heapify_j,
+                               heapify_a + heapify_j, 1);
+        handleArraySymbolically("heapify_a", heapify_i___0, "*(heapify_a + heapify_j)",
+                                heapify_a + heapify_i___0, heapify_a + heapify_i___0,
+                                1);
+        heapify_i___0 = heapify_j;
+        handleAssignmentSymbolically("heapify_i___0", "heapify_j", & heapify_j, & heapify_j,
+                                     1);
+        heapify_j = (heapify_i___0 - 1) / 2;
+        handleAssignmentSymbolically("heapify_j", "(/ (- heapify_i___0 1) 2)", & heapify_j,
+                                     & heapify_j, 1);
+      }
+    }
+    }
+    *(heapify_a + heapify_i___0) = heapify_item;
+    handleArraySymbolically("heapify_a", heapify_i___0, "heapify_item", heapify_a + heapify_i___0,
+                            heapify_a + heapify_i___0, 1);
+    heapify_k ++;
+    handleAssignmentSymbolically("heapify_k", "(+ heapify_k 1)", & heapify_k, & heapify_k,
+                                 1);
+  }
+  }
+  return;
+}
+}
+void adjust(int *adjust_a , int adjust_n ) 
+{ 
+  int adjust_i___0 ;
+  int adjust_j ;
+  int adjust_item ;
+  char *symName ;
+  void *addr ;
+  char in[15] ;
+
+  {
+  adjust_j = 0;
+  add_entryToSTable("adjust_j", "Constant", & adjust_j, & adjust_j, 1);
+  adjust_item = *(adjust_a + adjust_j);
+  addEntryToVariableTable("*(adjust_a + adjust_j)", adjust_j);
+  add_entryToArraySTable("adjust_a", adjust_j, "adjust_a110", adjust_a + adjust_j,
+                         adjust_a + adjust_j, 1);
+  handleAssignmentSymbolically("adjust_item", "*(adjust_a + adjust_j)", & *(adjust_a + adjust_j),
+                               & *(adjust_a + adjust_j), 1);
+  adjust_i___0 = 2 * adjust_j + 1;
+  handleAssignmentSymbolically("adjust_i___0", "(+ (* 2 adjust_j) 1)", & adjust_i___0,
+                               & adjust_i___0, 1);
+  {
+  if (adjust_i___0 <= adjust_n - 1) {
+    if (adjust_i___0 + 1 <= adjust_n - 1) {
+      if (*(adjust_a + adjust_i___0) < *(adjust_a + (adjust_i___0 + 1))) {
+        adjust_i___0 ++;
+        handleAssignmentSymbolically("adjust_i___0", "(+ adjust_i___0 1)", & adjust_i___0,
+                                     & adjust_i___0, 1);
+      }
+    }
+    if (adjust_item < *(adjust_a + adjust_i___0)) {
+      *(adjust_a + adjust_j) = *(adjust_a + adjust_i___0);
+      addEntryToVariableTable("*(adjust_a + adjust_i___0)", adjust_i___0);
+      add_entryToArraySTable("adjust_a", adjust_i___0, "adjust_a111", adjust_a + adjust_i___0,
+                             adjust_a + adjust_i___0, 1);
+      handleArraySymbolically("adjust_a", adjust_j, "*(adjust_a + adjust_i___0)",
+                              adjust_a + adjust_j, adjust_a + adjust_j, 1);
+      adjust_j = adjust_i___0;
+      handleAssignmentSymbolically("adjust_j", "adjust_i___0", & adjust_i___0, & adjust_i___0,
+                                   1);
+      adjust_i___0 = 2 * adjust_j + 1;
+      handleAssignmentSymbolically("adjust_i___0", "(+ (* 2 adjust_j) 1)", & adjust_i___0,
+                                   & adjust_i___0, 1);
+    } else {
+      adjust_i___0 = adjust_n;
+      handleAssignmentSymbolically("adjust_i___0", "adjust_n", & adjust_n, & adjust_n,
+                                   1);
+    }
+  }
+  if (adjust_i___0 <= adjust_n - 1) {
+    if (adjust_i___0 + 1 <= adjust_n - 1) {
+      if (*(adjust_a + adjust_i___0) < *(adjust_a + (adjust_i___0 + 1))) {
+        adjust_i___0 ++;
+        handleAssignmentSymbolically("adjust_i___0", "(+ adjust_i___0 1)", & adjust_i___0,
+                                     & adjust_i___0, 1);
+      }
+    }
+    if (adjust_item < *(adjust_a + adjust_i___0)) {
+      *(adjust_a + adjust_j) = *(adjust_a + adjust_i___0);
+      addEntryToVariableTable("*(adjust_a + adjust_i___0)", adjust_i___0);
+      add_entryToArraySTable("adjust_a", adjust_i___0, "adjust_a112", adjust_a + adjust_i___0,
+                             adjust_a + adjust_i___0, 1);
+      handleArraySymbolically("adjust_a", adjust_j, "*(adjust_a + adjust_i___0)",
+                              adjust_a + adjust_j, adjust_a + adjust_j, 1);
+      adjust_j = adjust_i___0;
+      handleAssignmentSymbolically("adjust_j", "adjust_i___0", & adjust_i___0, & adjust_i___0,
+                                   1);
+      adjust_i___0 = 2 * adjust_j + 1;
+      handleAssignmentSymbolically("adjust_i___0", "(+ (* 2 adjust_j) 1)", & adjust_i___0,
+                                   & adjust_i___0, 1);
+    } else {
+      adjust_i___0 = adjust_n;
+      handleAssignmentSymbolically("adjust_i___0", "adjust_n", & adjust_n, & adjust_n,
+                                   1);
+    }
+  }
+  }
+  *(adjust_a + adjust_j) = adjust_item;
+  handleArraySymbolically("adjust_a", adjust_j, "adjust_item", adjust_a + adjust_j,
+                          adjust_a + adjust_j, 1);
+  return;
 }
 }
 void getPrint(void) 
@@ -15885,22 +16169,31 @@ void callInstrumentedFun(void)
 
   {
   enQueue();
-  main1(argvar.a, argvar.b);
+  heapSort(argvar.a, argvar.n);
 }
 }
 void main(void) 
 { 
-  int a ;
-  int b ;
+  int *a ;
+  int n ;
   int temp ;
   int __cil_tmp2 ;
   int __cil_tmp3 ;
 
   {
-  __cil_tmp3 = rand();
-  argvar.a = __cil_tmp3 % 20;
+  argvar.a = (int *)malloc(30 * sizeof(int ));
+  __cil_tmp3 = 0;
+  while (1) {
+    if (__cil_tmp3 >= 30) {
+      break;
+    } else {
+      temp = rand();
+      *(argvar.a + __cil_tmp3) = temp % 20;
+      __cil_tmp3 ++;
+    }
+  }
   __cil_tmp2 = rand();
-  argvar.b = __cil_tmp2 % 20;
+  argvar.n = __cil_tmp2 % 20;
   initSID();
   isCopyOfHolder();
   createCDG();

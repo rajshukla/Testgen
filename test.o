@@ -866,7 +866,7 @@ extern void __assert (const char *__assertion, const char *__file, int __line)
     printf("Input two integers to divide\n");
     scanf("%d%d", &a, &b);
 
-    ((b != 0) ? (void) (0) : __assert_fail ("b != 0", "test.c", 10, __PRETTY_FUNCTION__));
+
 
     printf("%d/%d = %.2f\n", a, b, a/(float)b);
 

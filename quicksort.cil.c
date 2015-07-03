@@ -2837,20 +2837,20 @@ void directPathConditions(void)
   int tmp ;
   int tmp___0 ;
   int tmp___1 ;
+  int tmp___2 ;
   FILE *coveragefile ;
-  FILE *tmp___2 ;
+  FILE *tmp___3 ;
   char *fpc ;
-  char *tmp___3 ;
-  int tmp___4 ;
-  void *tmp___5 ;
-  int tmp___6 ;
+  char *tmp___4 ;
+  int tmp___5 ;
+  void *tmp___6 ;
   int tmp___7 ;
   int tmp___8 ;
   int tmp___9 ;
   int tmp___10 ;
   int tmp___11 ;
-  struct treeNode *tmp___12 ;
-  int tmp___13 ;
+  int tmp___12 ;
+  struct treeNode *tmp___13 ;
   int tmp___14 ;
   int tmp___15 ;
   int tmp___16 ;
@@ -2858,24 +2858,23 @@ void directPathConditions(void)
   int tmp___18 ;
   int tmp___19 ;
   int tmp___20 ;
-  struct treeNode *tmp___21 ;
-  char const   *tmp___22 ;
-  int tmp___23 ;
+  int tmp___21 ;
+  struct treeNode *tmp___22 ;
+  char const   *tmp___23 ;
+  int tmp___24 ;
 
   {
   atleastOneConditionNotCovered = 0;
   i___0 = 1;
-  tmp___1 = countTotalConditions();
-  if (tmp___1 == 0) {
-    orgPercent = (float )100;
-  } else {
-    tmp = countOrgCoveredConditions();
-    tmp___0 = countOrgTotalConditions();
-    orgPercent = (float )((tmp * 100) / (2 * tmp___0));
-  }
+  tmp = countCoveredConditions();
+  tmp___0 = countTotalConditions();
+  percent = (float )((tmp * 100) / (2 * tmp___0));
+  tmp___1 = countOrgCoveredConditions();
+  tmp___2 = countOrgTotalConditions();
+  orgPercent = (float )((tmp___1 * 100) / (2 * tmp___2));
   printf((char const   * __restrict  )"COVERAGE = %f....\n", (double )orgPercent);
-  tmp___2 = fopen((char const   * __restrict  )"src/src/coverage.txt", (char const   * __restrict  )"ab+");
-  coveragefile = tmp___2;
+  tmp___3 = fopen((char const   * __restrict  )"src/src/coverage.txt", (char const   * __restrict  )"ab+");
+  coveragefile = tmp___3;
   fprintf((FILE * __restrict  )coveragefile, (char const   * __restrict  )"%.1f\n",
           (double )orgPercent);
   if (queue.totalElements == 0) {
@@ -2886,12 +2885,12 @@ void directPathConditions(void)
     emptyQueue();
     return;
   }
-  tmp___3 = getFrontPathCondition();
-  fpc = tmp___3;
+  tmp___4 = getFrontPathCondition();
+  fpc = tmp___4;
   fpc = (char *)((void *)0);
   free((void *)fpc);
-  tmp___4 = countTotalConditions();
-  if (tmp___4) {
+  tmp___5 = countTotalConditions();
+  if (tmp___5) {
     if (execution_flag == 1) {
       if (previousRunCoverage != percent) {
         countNoNewConditionAttempts = 0;
@@ -2907,8 +2906,8 @@ void directPathConditions(void)
     }
     previousRunCoverage = percent;
   }
-  tmp___5 = malloc((size_t )1500);
-  newPathCondition = (char *)tmp___5;
+  tmp___6 = malloc((size_t )1500);
+  newPathCondition = (char *)tmp___6;
   *newPathCondition = (char)0;
   if (check_position >= 1) {
     if ((unsigned long )(queue.front)->levelptr[check_level + 1] == (unsigned long )((void *)0)) {
@@ -2929,25 +2928,25 @@ void directPathConditions(void)
     if (check_position == 0) {
       while ((unsigned long )curr != (unsigned long )((void *)0)) {
         if (curr->outcome) {
-          tmp___6 = checkForAllConstants(curr->fexp);
-          if (! tmp___6) {
+          tmp___7 = checkForAllConstants(curr->fexp);
+          if (! tmp___7) {
             strcat((char * __restrict  )newPathCondition, (char const   * __restrict  )curr->fexp);
             strcat((char * __restrict  )newPathCondition, (char const   * __restrict  )"##");
           }
-          tmp___7 = getSid(curr);
-          tmp___8 = getBranchInfo(tmp___7, 0);
-          if (! tmp___8) {
+          tmp___8 = getSid(curr);
+          tmp___9 = getBranchInfo(tmp___8, 0);
+          if (! tmp___9) {
             atleastOneConditionNotCovered = 1;
           }
         } else {
-          tmp___9 = checkForAllConstants(curr->texp);
-          if (! tmp___9) {
+          tmp___10 = checkForAllConstants(curr->texp);
+          if (! tmp___10) {
             strcat((char * __restrict  )newPathCondition, (char const   * __restrict  )curr->texp);
             strcat((char * __restrict  )newPathCondition, (char const   * __restrict  )"##");
           }
-          tmp___10 = getSid(curr);
-          tmp___11 = getBranchInfo(tmp___10, 1);
-          if (! tmp___11) {
+          tmp___11 = getSid(curr);
+          tmp___12 = getBranchInfo(tmp___11, 1);
+          if (! tmp___12) {
             atleastOneConditionNotCovered = 1;
           }
         }
@@ -2989,8 +2988,8 @@ void directPathConditions(void)
         return;
       }
     }
-    tmp___12 = getFchild(curr);
-    if ((unsigned long )tmp___12 == (unsigned long )((void *)0)) {
+    tmp___13 = getFchild(curr);
+    if ((unsigned long )tmp___13 == (unsigned long )((void *)0)) {
       check_position ++;
       if ((unsigned long )newPathCondition != (unsigned long )((void *)0)) {
         newPathCondition = (char *)((void *)0);
@@ -3015,25 +3014,25 @@ void directPathConditions(void)
         break;
       }
       if (curr->outcome) {
-        tmp___13 = checkForAllConstants(curr->fexp);
-        if (! tmp___13) {
+        tmp___14 = checkForAllConstants(curr->fexp);
+        if (! tmp___14) {
           strcat((char * __restrict  )newPathCondition, (char const   * __restrict  )curr->fexp);
           strcat((char * __restrict  )newPathCondition, (char const   * __restrict  )"##");
         }
-        tmp___14 = getSid(curr);
-        tmp___15 = getBranchInfo(tmp___14, 0);
-        if (! tmp___15) {
+        tmp___15 = getSid(curr);
+        tmp___16 = getBranchInfo(tmp___15, 0);
+        if (! tmp___16) {
           atleastOneConditionNotCovered = 1;
         }
       } else {
-        tmp___16 = checkForAllConstants(curr->texp);
-        if (! tmp___16) {
+        tmp___17 = checkForAllConstants(curr->texp);
+        if (! tmp___17) {
           strcat((char * __restrict  )newPathCondition, (char const   * __restrict  )curr->texp);
           strcat((char * __restrict  )newPathCondition, (char const   * __restrict  )"##");
         }
-        tmp___17 = getSid(curr);
-        tmp___18 = getBranchInfo(tmp___17, 1);
-        if (! tmp___18) {
+        tmp___18 = getSid(curr);
+        tmp___19 = getBranchInfo(tmp___18, 1);
+        if (! tmp___19) {
           atleastOneConditionNotCovered = 1;
         }
       }
@@ -3042,8 +3041,8 @@ void directPathConditions(void)
     curr = parent;
     while ((unsigned long )curr != (unsigned long )((void *)0)) {
       if (curr->outcome) {
-        tmp___20 = checkForAllConstants(curr->texp);
-        if (tmp___20) {
+        tmp___21 = checkForAllConstants(curr->texp);
+        if (tmp___21) {
           goto _L___1;
         } else {
           strcat((char * __restrict  )newPathCondition, (char const   * __restrict  )curr->texp);
@@ -3051,8 +3050,8 @@ void directPathConditions(void)
         }
       } else {
         _L___1: /* CIL Label */ 
-        tmp___19 = checkForAllConstants(curr->fexp);
-        if (! tmp___19) {
+        tmp___20 = checkForAllConstants(curr->fexp);
+        if (! tmp___20) {
           strcat((char * __restrict  )newPathCondition, (char const   * __restrict  )curr->fexp);
           strcat((char * __restrict  )newPathCondition, (char const   * __restrict  )"##");
         }
@@ -3060,8 +3059,8 @@ void directPathConditions(void)
       curr = getNodeParent(curr);
     }
     curr = (queue.front)->levelptr[check_level];
-    tmp___21 = getNextnode(curr);
-    if ((unsigned long )tmp___21 == (unsigned long )((void *)0)) {
+    tmp___22 = getNextnode(curr);
+    if ((unsigned long )tmp___22 == (unsigned long )((void *)0)) {
       check_level ++;
       check_position = 1;
     } else {
@@ -3074,14 +3073,14 @@ void directPathConditions(void)
       getPrint();
       writeProgramSVariables();
       if ((unsigned long )newPathCondition != (unsigned long )((void *)0)) {
-        tmp___22 = (char const   *)newPathCondition;
+        tmp___23 = (char const   *)newPathCondition;
       } else {
-        tmp___22 = "null";
+        tmp___23 = "null";
       }
-      printf((char const   * __restrict  )"Path Condition : %s\n", tmp___22);
+      printf((char const   * __restrict  )"Path Condition : %s\n", tmp___23);
       writeConditionsToFile(newPathCondition);
-      tmp___23 = getOutputFromConstraintSolver();
-      if (! tmp___23) {
+      tmp___24 = getOutputFromConstraintSolver();
+      if (! tmp___24) {
         remove("src/src/printTest.smt");
         newPathCondition = (char *)((void *)0);
         free((void *)newPathCondition);
@@ -15551,30 +15550,37 @@ int getTestCases(void)
   int i___0 ;
   int tmp ;
   int tmp___0 ;
-  FILE *coveragefile ;
-  FILE *tmp___1 ;
+  int tmp___1 ;
   int tmp___2 ;
-  int tmp___3 ;
-  FILE *coveragefile___0 ;
-  FILE *tmp___4 ;
-  FILE *fp ;
-  FILE *tmp___5 ;
+  FILE *coveragefile ;
+  FILE *tmp___3 ;
+  int tmp___4 ;
+  int tmp___5 ;
   int tmp___6 ;
   int tmp___7 ;
-  int tmp___8 ;
-  int tmp___9 ;
+  FILE *coveragefile___0 ;
+  FILE *tmp___8 ;
+  FILE *fp ;
+  FILE *tmp___9 ;
   int tmp___10 ;
+  int tmp___11 ;
+  int tmp___12 ;
+  int tmp___13 ;
+  int tmp___14 ;
 
   {
   atleastOneConditionNotCovered = 0;
   i___0 = 0;
   currPath = newSATPath;
-  tmp = countOrgCoveredConditions();
-  tmp___0 = countOrgTotalConditions();
-  orgPercent = (float )((tmp * 100) / (2 * tmp___0));
+  tmp = countCoveredConditions();
+  tmp___0 = countTotalConditions();
+  percent = (float )((tmp * 100) / (2 * tmp___0));
+  tmp___1 = countOrgCoveredConditions();
+  tmp___2 = countOrgTotalConditions();
+  orgPercent = (float )((tmp___1 * 100) / (2 * tmp___2));
   printf((char const   * __restrict  )"COVERAGE = %f....\n", (double )orgPercent);
-  tmp___1 = fopen((char const   * __restrict  )"src/src/coverage.txt", (char const   * __restrict  )"ab+");
-  coveragefile = tmp___1;
+  tmp___3 = fopen((char const   * __restrict  )"src/src/coverage.txt", (char const   * __restrict  )"ab+");
+  coveragefile = tmp___3;
   fprintf((FILE * __restrict  )coveragefile, (char const   * __restrict  )"%.1f\n",
           (double )orgPercent);
   if ((unsigned long )savePath != (unsigned long )((void *)0)) {
@@ -15596,12 +15602,15 @@ int getTestCases(void)
     currPath = currPath->next;
     if ((unsigned long )currPath == (unsigned long )((void *)0)) {
       print_conditions();
-      tmp___2 = countOrgCoveredConditions();
-      tmp___3 = countOrgTotalConditions();
-      orgPercent = (float )((tmp___2 * 100) / (2 * tmp___3));
+      tmp___4 = countCoveredConditions();
+      tmp___5 = countTotalConditions();
+      percent = (float )((tmp___4 * 100) / (2 * tmp___5));
+      tmp___6 = countOrgCoveredConditions();
+      tmp___7 = countOrgTotalConditions();
+      orgPercent = (float )((tmp___6 * 100) / (2 * tmp___7));
       printf((char const   * __restrict  )"COVERAGE = %f....\n", (double )orgPercent);
-      tmp___4 = fopen((char const   * __restrict  )"src/src/coverage.txt", (char const   * __restrict  )"ab+");
-      coveragefile___0 = tmp___4;
+      tmp___8 = fopen((char const   * __restrict  )"src/src/coverage.txt", (char const   * __restrict  )"ab+");
+      coveragefile___0 = tmp___8;
       fprintf((FILE * __restrict  )coveragefile___0, (char const   * __restrict  )"%.1f\n",
               (double )orgPercent);
       CDG_Module = 0;
@@ -15614,8 +15623,8 @@ int getTestCases(void)
   remove("src/src/printTest.smt");
   getPrint();
   writeProgramSVariables();
-  tmp___5 = fopen((char const   * __restrict  )"src/src/printTest.smt", (char const   * __restrict  )"a");
-  fp = tmp___5;
+  tmp___9 = fopen((char const   * __restrict  )"src/src/printTest.smt", (char const   * __restrict  )"a");
+  fp = tmp___9;
   if ((unsigned long )fp == (unsigned long )((void *)0)) {
     printf((char const   * __restrict  )"Error opening file!\n");
     exit(1);
@@ -15624,25 +15633,25 @@ int getTestCases(void)
     if (curr->id == 0) {
       break;
     }
-    tmp___10 = getOutcome(curr);
-    if (tmp___10) {
-      tmp___6 = checkForAllConstants(curr->expr);
-      if (! tmp___6) {
+    tmp___14 = getOutcome(curr);
+    if (tmp___14) {
+      tmp___10 = checkForAllConstants(curr->expr);
+      if (! tmp___10) {
         fprintf((FILE * __restrict  )fp, (char const   * __restrict  )"  :assumption %s\n",
                 curr->expr);
       }
-      tmp___7 = getBranchInfo(curr->id, 1);
-      if (! tmp___7) {
+      tmp___11 = getBranchInfo(curr->id, 1);
+      if (! tmp___11) {
         atleastOneConditionNotCovered = 1;
       }
     } else {
-      tmp___8 = checkForAllConstants(curr->expr);
-      if (! tmp___8) {
+      tmp___12 = checkForAllConstants(curr->expr);
+      if (! tmp___12) {
         fprintf((FILE * __restrict  )fp, (char const   * __restrict  )"  :assumption %s\n",
                 curr->expr);
       }
-      tmp___9 = getBranchInfo(curr->id, 0);
-      if (! tmp___9) {
+      tmp___13 = getBranchInfo(curr->id, 0);
+      if (! tmp___13) {
         atleastOneConditionNotCovered = 1;
       }
     }
@@ -15792,6 +15801,101 @@ void swap(int *swap_a , int *swap_b )
   return;
 }
 }
+int partition(int *partition_arr , int partition_l , int partition_h ) 
+{ 
+  int partition_x ;
+  int partition_i___0 ;
+  int partition_j ;
+  int partition___cil_tmp7 ;
+  int *partition___cil_tmp8 ;
+  int *partition___cil_tmp9 ;
+  int *partition___cil_tmp10 ;
+  int *partition___cil_tmp11 ;
+  char *symName ;
+  void *addr ;
+  char in[15] ;
+
+  {
+  partition_x = *(partition_arr + partition_h);
+  addEntryToVariableTable("*(partition_arr + partition_h)", partition_h);
+  add_entryToArraySTable("partition_arr", partition_h, "partition_arr10", partition_arr + partition_h,
+                         partition_arr + partition_h, 1);
+  handleAssignmentSymbolically("partition_x", "*(partition_arr + partition_h)", & *(partition_arr + partition_h),
+                               & *(partition_arr + partition_h), 1);
+  partition_i___0 = partition_l - 1;
+  handleAssignmentSymbolically("partition_i___0", "(- partition_l 1)", & partition_i___0,
+                               & partition_i___0, 1);
+  printf((char const   * __restrict  )"l=%d, h=%d\n", partition_l, partition_h);
+  partition_j = partition_l;
+  handleAssignmentSymbolically("partition_j", "partition_l", & partition_l, & partition_l,
+                               1);
+  {
+  if (partition_j <= partition_h - 1) {
+    if (*(partition_arr + partition_j) <= partition_x) {
+      partition_i___0 ++;
+      handleAssignmentSymbolically("partition_i___0", "(+ partition_i___0 1)", & partition_i___0,
+                                   & partition_i___0, 1);
+      partition___cil_tmp8 = partition_arr + partition_i___0;
+      handleAssignmentSymbolically("partition___cil_tmp8", "(+ partition_arr partition_i___0)",
+                                   & partition___cil_tmp8, & partition___cil_tmp8,
+                                   1);
+      partition___cil_tmp9 = partition_arr + partition_j;
+      handleAssignmentSymbolically("partition___cil_tmp9", "(+ partition_arr partition_j)",
+                                   & partition___cil_tmp9, & partition___cil_tmp9,
+                                   1);
+      funcEntry("(int *,swap_a,pointer,partition___cil_tmp8)#(int *,swap_b,pointer,partition___cil_tmp9)",
+                "swap_t", "swap");
+      swap(partition___cil_tmp8, partition___cil_tmp9);
+      funcExit();
+    }
+    partition_j ++;
+    handleAssignmentSymbolically("partition_j", "(+ partition_j 1)", & partition_j,
+                                 & partition_j, 1);
+  }
+  if (partition_j <= partition_h - 1) {
+    if (*(partition_arr + partition_j) <= partition_x) {
+      partition_i___0 ++;
+      handleAssignmentSymbolically("partition_i___0", "(+ partition_i___0 1)", & partition_i___0,
+                                   & partition_i___0, 1);
+      partition___cil_tmp8 = partition_arr + partition_i___0;
+      handleAssignmentSymbolically("partition___cil_tmp8", "(+ partition_arr partition_i___0)",
+                                   & partition___cil_tmp8, & partition___cil_tmp8,
+                                   1);
+      partition___cil_tmp9 = partition_arr + partition_j;
+      handleAssignmentSymbolically("partition___cil_tmp9", "(+ partition_arr partition_j)",
+                                   & partition___cil_tmp9, & partition___cil_tmp9,
+                                   1);
+      funcEntry("(int *,swap_a,pointer,partition___cil_tmp8)#(int *,swap_b,pointer,partition___cil_tmp9)",
+                "swap_t", "swap");
+      swap(partition___cil_tmp8, partition___cil_tmp9);
+      funcExit();
+    }
+    partition_j ++;
+    handleAssignmentSymbolically("partition_j", "(+ partition_j 1)", & partition_j,
+                                 & partition_j, 1);
+  }
+  }
+  partition___cil_tmp10 = partition_arr + (partition_i___0 + 1);
+  handleAssignmentSymbolically("partition___cil_tmp10", "(+ partition_arr (+ partition_i___0 1))",
+                               & partition___cil_tmp10, & partition___cil_tmp10, 1);
+  partition___cil_tmp11 = partition_arr + partition_h;
+  handleAssignmentSymbolically("partition___cil_tmp11", "(+ partition_arr partition_h)",
+                               & partition___cil_tmp11, & partition___cil_tmp11, 1);
+  funcEntry("(int *,swap_a,pointer,partition___cil_tmp10)#(int *,swap_b,pointer,partition___cil_tmp11)",
+            "swap_t", "swap");
+  swap(partition___cil_tmp10, partition___cil_tmp11);
+  funcExit();
+  {
+  partition___cil_tmp7 = partition_i___0 + 1;
+  handleAssignmentSymbolically("partition___cil_tmp7", "(+ partition_i___0 1)", & partition___cil_tmp7,
+                               & partition___cil_tmp7, 1);
+  {
+  mapConcolicValues("partition___cil_tmp7", & partition___cil_tmp7);
+  return (partition___cil_tmp7);
+  }
+  }
+}
+}
 void createCDG(void) 
 { 
 
@@ -15801,27 +15905,49 @@ void createCDG(void)
   addtoCDGnode(1, 0, 1);
   addtoCDGnode(2, 0, 1);
   addtoCDGnode(3, 0, 1);
-  setArray(3, "(<= j (- h 1))");
+  setArray(3, "(>= top 0)");
   addtoCDGnode(4, 3, 1);
-  setArray(4, "(<= *(arr + j) x)");
-  addtoCDGnode(7, 0, 1);
-  setArray(7, "(<= j (- h 1))");
+  setArray(4, "(> l 0)");
+  addtoCDGnode(11, 0, 1);
+  setArray(11, "(>= top 0)");
   addtoCDGnode(5, 4, 1);
-  addtoCDGnode(6, 3, 1);
-  addtoCDGnode(6, 3, 1);
-  addtoCDGnode(7, 0, 1);
-  setArray(7, "(<= j (- h 1))");
+  setArray(5, "(> h l)");
+  addtoCDGnode(11, 0, 1);
+  setArray(11, "(>= top 0)");
+  addtoCDGnode(6, 5, 1);
+  addtoCDGnode(11, 0, 1);
+  setArray(11, "(>= top 0)");
+  addtoCDGnode(7, 5, 1);
+  setArray(7, "(> (- p 1) l)");
   addtoCDGnode(8, 7, 1);
-  setArray(8, "(<= *(arr + j) x)");
+  addtoCDGnode(9, 5, 1);
+  setArray(9, "(< (+ p 1) h)");
+  addtoCDGnode(9, 5, 1);
+  setArray(9, "(< (+ p 1) h)");
+  addtoCDGnode(10, 9, 1);
   addtoCDGnode(11, 0, 1);
-  addtoCDGnode(9, 8, 1);
-  addtoCDGnode(10, 7, 1);
-  addtoCDGnode(10, 7, 1);
+  setArray(11, "(>= top 0)");
   addtoCDGnode(11, 0, 1);
-  addtoCDGnode(12, 0, 1);
-  addtoCDGnode(13, 0, 1);
-  addtoCDGnode(14, 0, 1);
-  addtoCDGnode(15, 0, 1);
+  setArray(11, "(>= top 0)");
+  addtoCDGnode(12, 11, 1);
+  setArray(12, "(> l 0)");
+  addtoCDGnode(19, 0, 1);
+  addtoCDGnode(13, 12, 1);
+  setArray(13, "(> h l)");
+  addtoCDGnode(19, 0, 1);
+  addtoCDGnode(14, 13, 1);
+  addtoCDGnode(19, 0, 1);
+  addtoCDGnode(15, 13, 1);
+  setArray(15, "(> (- p 1) l)");
+  addtoCDGnode(16, 15, 1);
+  addtoCDGnode(17, 13, 1);
+  setArray(17, "(< (+ p 1) h)");
+  addtoCDGnode(17, 13, 1);
+  setArray(17, "(< (+ p 1) h)");
+  addtoCDGnode(18, 17, 1);
+  addtoCDGnode(19, 0, 1);
+  addtoCDGnode(19, 0, 1);
+  addtoCDGnode(20, 0, 1);
 }
 }
 void isCopyOfHolder(void) 
@@ -15829,10 +15955,16 @@ void isCopyOfHolder(void)
 
 
   {
-  isCopyOf(4, 4);
-  isCopyOf(8, 4);
+  isCopyOf(7, 7);
+  isCopyOf(15, 7);
+  isCopyOf(9, 9);
+  isCopyOf(17, 9);
   isCopyOf(3, 3);
-  isCopyOf(7, 3);
+  isCopyOf(11, 3);
+  isCopyOf(5, 5);
+  isCopyOf(13, 5);
+  isCopyOf(4, 4);
+  isCopyOf(12, 4);
 }
 }
 void createSidTable(void) 
@@ -15840,10 +15972,16 @@ void createSidTable(void)
 
 
   {
-  add_condition(4, "(<= *(arr + j) x)", "(not (<= *(arr + j) x))", 0, 0);
-  add_condition(3, "(<= j (- h 1))", "(not (<= j (- h 1)))", 0, 0);
-  add_condition(8, "(<= *(arr + j) x)", "(not (<= *(arr + j) x))", 0, 0);
-  add_condition(7, "(<= j (- h 1))", "(not (<= j (- h 1)))", 0, 0);
+  add_condition(7, "(> (- p 1) l)", "(not (> (- p 1) l))", 0, 0);
+  add_condition(9, "(< (+ p 1) h)", "(not (< (+ p 1) h))", 0, 0);
+  add_condition(5, "(> h l)", "(not (> h l))", 0, 0);
+  add_condition(4, "(> l 0)", "(not (> l 0))", 0, 0);
+  add_condition(3, "(>= top 0)", "(not (>= top 0))", 0, 0);
+  add_condition(15, "(> (- p 1) l)", "(not (> (- p 1) l))", 0, 0);
+  add_condition(17, "(< (+ p 1) h)", "(not (< (+ p 1) h))", 0, 0);
+  add_condition(13, "(> h l)", "(not (> h l))", 0, 0);
+  add_condition(12, "(> l 0)", "(not (> l 0))", 0, 0);
+  add_condition(11, "(>= top 0)", "(not (>= top 0))", 0, 0);
 }
 }
 struct arguments {
@@ -15852,16 +15990,16 @@ struct arguments {
    int h ;
 };
 struct arguments argvar ;
-int partition(int *arr , int l , int h ) 
+void quickSort(int *arr , int l , int h ) 
 { 
-  int x ;
-  int i___0 ;
-  int j ;
-  int __cil_tmp7 ;
-  int *__cil_tmp8 ;
-  int *__cil_tmp9 ;
-  int *__cil_tmp10 ;
-  int *__cil_tmp11 ;
+  int *stack ;
+  unsigned long __lengthofstack ;
+  void *tmp ;
+  int top ;
+  int tmp___0 ;
+  int tmp___1 ;
+  int p ;
+  int tmp___2 ;
   int exp_outcome ;
   int overall_outcome ;
   int __cil_tmp14 ;
@@ -15875,349 +16013,325 @@ int partition(int *arr , int l , int h )
   add_entryToSTable("__cil_tmp15", "Function", & __cil_tmp15, & __cil_tmp15, -1);
   sprintf(__cil_tmp15, "\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n", arr[0], arr[1], arr[2], arr[3],
           arr[4], l, h);
-  printTestCase("quicksort_partition_1435823376.tc", __cil_tmp15);
+  printTestCase("quicksort_quickSort_1435904874.tc", __cil_tmp15);
   add_entryToSTable("h", "s2", & h, & h, 1);
   add_entryToSTable("l", "s1", & l, & l, 1);
   add_entryToArraySTable("arr", 0, "arr_0", arr, arr, 1);
-  x = *(arr + h);
-  addEntryToVariableTable("*(arr + h)", h);
-  add_entryToArraySTable("arr", h, "arr10", arr + h, arr + h, 1);
-  handleAssignmentSymbolically("x", "*(arr + h)", & *(arr + h), & *(arr + h), 1);
-  i___0 = l - 1;
-  handleAssignmentSymbolically("i___0", "(- l 1)", & i___0, & i___0, 1);
-  printf((char const   * __restrict  )"l=%d, h=%d\n", l, h);
-  j = l;
-  handleAssignmentSymbolically("j", "l", & l, & l, 1);
+  __lengthofstack = (unsigned long )((h - l) + 1);
+  handleAssignmentSymbolically("__lengthofstack", "(+ (- h l) 1)", & __lengthofstack,
+                               & __lengthofstack, 1);
+  tmp = __builtin_alloca(sizeof(*stack) * __lengthofstack);
+  add_entryToSTable("tmp", "Function", & tmp, & tmp, -1);
+  stack = (int *)tmp;
+  handleAssignmentSymbolically("stack", "tmp", & stack, & stack, 1);
+  top = -1;
+  add_entryToSTable("top", "Constant", & top, & top, 1);
+  top ++;
+  handleAssignmentSymbolically("top", "(+ top 1)", & top, & top, 1);
+  *(stack + top) = l;
+  handleArraySymbolically("stack", top, "l", stack + top, stack + top, 1);
+  top ++;
+  handleAssignmentSymbolically("top", "(+ top 1)", & top, & top, 1);
+  *(stack + top) = h;
+  handleArraySymbolically("stack", top, "h", stack + top, stack + top, 1);
   {
   {
-  exp_outcome = j <= h - 1;
-  handleAssignmentSymbolically("exp_outcome", "(<= j (- h 1))", & exp_outcome, & exp_outcome,
+  exp_outcome = top >= 0;
+  handleAssignmentSymbolically("exp_outcome", "(>= top 0)", & exp_outcome, & exp_outcome,
                                1);
   overall_outcome = (int )getConditionalOutcome(3, exp_outcome);
   if (overall_outcome) {
     setBranchInfo(3, 1, 0);
-    setTrueExpr(3, "(<= j (- h 1))");
-    setFalseExpr(3, "(not (<= j (- h 1)))");
-    addToTree(3, 1, "(<= j (- h 1))", "(not (<= j (- h 1)))", 0, 1);
+    setTrueExpr(3, "(>= top 0)");
+    setFalseExpr(3, "(not (>= top 0))");
+    addToTree(3, 1, "(>= top 0)", "(not (>= top 0))", 0, 1);
     delete_allVariableTableEntry();
     {
-    exp_outcome = *(arr + j) <= x;
-    addEntryToVariableTable("*(arr + j)", j);
-    add_entryToArraySTable("arr", j, "arr11", arr + j, arr + j, 1);
-    handleAssignmentSymbolically("exp_outcome", "(<= *(arr + j) x)", & exp_outcome,
-                                 & exp_outcome, 1);
+    exp_outcome = l > 0;
+    handleAssignmentSymbolically("exp_outcome", "(> l 0)", & exp_outcome, & exp_outcome,
+                                 1);
     overall_outcome = (int )getConditionalOutcome(4, exp_outcome);
     if (overall_outcome) {
-      addEntryToVariableTable("*(arr + j)", j);
-      add_entryToArraySTable("arr", j, "arr10", arr + j, arr + j, 1);
       setBranchInfo(4, 1, 0);
-      setTrueExpr(4, "(<= *(arr + j) x)");
-      setFalseExpr(4, "(not (<= *(arr + j) x))");
-      addToTree(4, 2, "(<= *(arr + j) x)", "(not (<= *(arr + j) x))", 3, 1);
+      setTrueExpr(4, "(> l 0)");
+      setFalseExpr(4, "(not (> l 0))");
+      addToTree(4, 2, "(> l 0)", "(not (> l 0))", 3, 1);
       delete_allVariableTableEntry();
-      i___0 ++;
-      handleAssignmentSymbolically("i___0", "(+ i___0 1)", & i___0, & i___0, 1);
-      __cil_tmp8 = arr + i___0;
-      handleAssignmentSymbolically("__cil_tmp8", "(+ arr i___0)", & __cil_tmp8, & __cil_tmp8,
+      {
+      exp_outcome = h > l;
+      handleAssignmentSymbolically("exp_outcome", "(> h l)", & exp_outcome, & exp_outcome,
                                    1);
-      __cil_tmp9 = arr + j;
-      handleAssignmentSymbolically("__cil_tmp9", "(+ arr j)", & __cil_tmp9, & __cil_tmp9,
-                                   1);
-      funcEntry("(int *,swap_a,pointer,__cil_tmp8)#(int *,swap_b,pointer,__cil_tmp9)",
-                "swap_t", "swap");
-      swap(__cil_tmp8, __cil_tmp9);
-      funcExit();
+      overall_outcome = (int )getConditionalOutcome(5, exp_outcome);
+      if (overall_outcome) {
+        setBranchInfo(5, 1, 0);
+        setTrueExpr(5, "(> h l)");
+        setFalseExpr(5, "(not (> h l))");
+        addToTree(5, 3, "(> h l)", "(not (> h l))", 4, 1);
+        delete_allVariableTableEntry();
+        tmp___0 = top;
+        handleAssignmentSymbolically("tmp___0", "top", & top, & top, 1);
+        top --;
+        handleAssignmentSymbolically("top", "(- top 1)", & top, & top, 1);
+        h = *(stack + tmp___0);
+        addEntryToVariableTable("*(stack + tmp___0)", tmp___0);
+        add_entryToArraySTable("stack", tmp___0, "stack11", stack + tmp___0, stack + tmp___0,
+                               1);
+        handleAssignmentSymbolically("h", "*(stack + tmp___0)", & *(stack + tmp___0),
+                                     & *(stack + tmp___0), 1);
+        tmp___1 = top;
+        handleAssignmentSymbolically("tmp___1", "top", & top, & top, 1);
+        top --;
+        handleAssignmentSymbolically("top", "(- top 1)", & top, & top, 1);
+        l = *(stack + tmp___1);
+        addEntryToVariableTable("*(stack + tmp___1)", tmp___1);
+        add_entryToArraySTable("stack", tmp___1, "stack12", stack + tmp___1, stack + tmp___1,
+                               1);
+        handleAssignmentSymbolically("l", "*(stack + tmp___1)", & *(stack + tmp___1),
+                                     & *(stack + tmp___1), 1);
+        funcEntry("(int *,partition_arr,array,arr)#(int,partition_l,variable,l)#(int,partition_h,variable,h)",
+                  "partition_x partition_i___0 partition_j partition___cil_tmp7 partition___cil_tmp8 partition___cil_tmp9 partition___cil_tmp10 partition___cil_tmp11",
+                  "partition");
+        tmp___2 = partition(arr, l, h);
+        funcExit();
+        add_entryToSTable("tmp___2", ret_SymValue, ret_ConValue, & tmp___2, 1);
+        p = tmp___2;
+        handleAssignmentSymbolically("p", "tmp___2", & tmp___2, & tmp___2, 1);
+        {
+        exp_outcome = p - 1 > l;
+        handleAssignmentSymbolically("exp_outcome", "(> (- p 1) l)", & exp_outcome,
+                                     & exp_outcome, 1);
+        overall_outcome = (int )getConditionalOutcome(7, exp_outcome);
+        if (overall_outcome) {
+          setBranchInfo(7, 1, 0);
+          setTrueExpr(7, "(> (- p 1) l)");
+          setFalseExpr(7, "(not (> (- p 1) l))");
+          addToTree(7, 4, "(> (- p 1) l)", "(not (> (- p 1) l))", 5, 1);
+          delete_allVariableTableEntry();
+          top ++;
+          handleAssignmentSymbolically("top", "(+ top 1)", & top, & top, 1);
+          *(stack + top) = l;
+          handleArraySymbolically("stack", top, "l", stack + top, stack + top, 1);
+          top ++;
+          handleAssignmentSymbolically("top", "(+ top 1)", & top, & top, 1);
+          *(stack + top) = p - 1;
+          handleArraySymbolically("stack", top, "(- p 1)", stack + top, stack + top,
+                                  1);
+        } else {
+          setBranchInfo(7, 0, 1);
+          setTrueExpr(7, "(> (- p 1) l)");
+          setFalseExpr(7, "(not (> (- p 1) l))");
+          addToTree(7, 4, "(> (- p 1) l)", "(not (> (- p 1) l))", 5, 0);
+          delete_allVariableTableEntry();
+        }
+        }
+        {
+        exp_outcome = p + 1 < h;
+        handleAssignmentSymbolically("exp_outcome", "(< (+ p 1) h)", & exp_outcome,
+                                     & exp_outcome, 1);
+        overall_outcome = (int )getConditionalOutcome(9, exp_outcome);
+        if (overall_outcome) {
+          setBranchInfo(9, 1, 0);
+          setTrueExpr(9, "(< (+ p 1) h)");
+          setFalseExpr(9, "(not (< (+ p 1) h))");
+          addToTree(9, 4, "(< (+ p 1) h)", "(not (< (+ p 1) h))", 5, 1);
+          delete_allVariableTableEntry();
+          top ++;
+          handleAssignmentSymbolically("top", "(+ top 1)", & top, & top, 1);
+          *(stack + top) = p + 1;
+          handleArraySymbolically("stack", top, "(+ p 1)", stack + top, stack + top,
+                                  1);
+          top ++;
+          handleAssignmentSymbolically("top", "(+ top 1)", & top, & top, 1);
+          *(stack + top) = h;
+          handleArraySymbolically("stack", top, "h", stack + top, stack + top, 1);
+        } else {
+          setBranchInfo(9, 0, 1);
+          setTrueExpr(9, "(< (+ p 1) h)");
+          setFalseExpr(9, "(not (< (+ p 1) h))");
+          addToTree(9, 4, "(< (+ p 1) h)", "(not (< (+ p 1) h))", 5, 0);
+          delete_allVariableTableEntry();
+        }
+        }
+      } else {
+        setBranchInfo(5, 0, 1);
+        setTrueExpr(5, "(> h l)");
+        setFalseExpr(5, "(not (> h l))");
+        addToTree(5, 3, "(> h l)", "(not (> h l))", 4, 0);
+        delete_allVariableTableEntry();
+      }
+      }
     } else {
-      addEntryToVariableTable("*(arr + j)", j);
-      add_entryToArraySTable("arr", j, "arr10", arr + j, arr + j, 1);
       setBranchInfo(4, 0, 1);
-      setTrueExpr(4, "(<= *(arr + j) x)");
-      setFalseExpr(4, "(not (<= *(arr + j) x))");
-      addToTree(4, 2, "(<= *(arr + j) x)", "(not (<= *(arr + j) x))", 3, 0);
+      setTrueExpr(4, "(> l 0)");
+      setFalseExpr(4, "(not (> l 0))");
+      addToTree(4, 2, "(> l 0)", "(not (> l 0))", 3, 0);
       delete_allVariableTableEntry();
     }
     }
-    j ++;
-    handleAssignmentSymbolically("j", "(+ j 1)", & j, & j, 1);
   } else {
     setBranchInfo(3, 0, 1);
-    setTrueExpr(3, "(<= j (- h 1))");
-    setFalseExpr(3, "(not (<= j (- h 1)))");
-    addToTree(3, 1, "(<= j (- h 1))", "(not (<= j (- h 1)))", 0, 0);
+    setTrueExpr(3, "(>= top 0)");
+    setFalseExpr(3, "(not (>= top 0))");
+    addToTree(3, 1, "(>= top 0)", "(not (>= top 0))", 0, 0);
     delete_allVariableTableEntry();
   }
   }
   {
-  exp_outcome = j <= h - 1;
-  handleAssignmentSymbolically("exp_outcome", "(<= j (- h 1))", & exp_outcome, & exp_outcome,
+  exp_outcome = top >= 0;
+  handleAssignmentSymbolically("exp_outcome", "(>= top 0)", & exp_outcome, & exp_outcome,
                                1);
-  overall_outcome = (int )getConditionalOutcome(7, exp_outcome);
+  overall_outcome = (int )getConditionalOutcome(11, exp_outcome);
   if (overall_outcome) {
-    setBranchInfo(7, 1, 0);
-    setTrueExpr(7, "(<= j (- h 1))");
-    setFalseExpr(7, "(not (<= j (- h 1)))");
-    addToTree(7, 1, "(<= j (- h 1))", "(not (<= j (- h 1)))", 0, 1);
+    setBranchInfo(11, 1, 0);
+    setTrueExpr(11, "(>= top 0)");
+    setFalseExpr(11, "(not (>= top 0))");
+    addToTree(11, 1, "(>= top 0)", "(not (>= top 0))", 0, 1);
     delete_allVariableTableEntry();
     {
-    exp_outcome = *(arr + j) <= x;
-    addEntryToVariableTable("*(arr + j)", j);
-    add_entryToArraySTable("arr", j, "arr12", arr + j, arr + j, 1);
-    handleAssignmentSymbolically("exp_outcome", "(<= *(arr + j) x)", & exp_outcome,
-                                 & exp_outcome, 1);
-    overall_outcome = (int )getConditionalOutcome(8, exp_outcome);
+    exp_outcome = l > 0;
+    handleAssignmentSymbolically("exp_outcome", "(> l 0)", & exp_outcome, & exp_outcome,
+                                 1);
+    overall_outcome = (int )getConditionalOutcome(12, exp_outcome);
     if (overall_outcome) {
-      addEntryToVariableTable("*(arr + j)", j);
-      add_entryToArraySTable("arr", j, "arr11", arr + j, arr + j, 1);
-      setBranchInfo(8, 1, 0);
-      setTrueExpr(8, "(<= *(arr + j) x)");
-      setFalseExpr(8, "(not (<= *(arr + j) x))");
-      addToTree(8, 2, "(<= *(arr + j) x)", "(not (<= *(arr + j) x))", 7, 1);
+      setBranchInfo(12, 1, 0);
+      setTrueExpr(12, "(> l 0)");
+      setFalseExpr(12, "(not (> l 0))");
+      addToTree(12, 2, "(> l 0)", "(not (> l 0))", 11, 1);
       delete_allVariableTableEntry();
-      i___0 ++;
-      handleAssignmentSymbolically("i___0", "(+ i___0 1)", & i___0, & i___0, 1);
-      __cil_tmp8 = arr + i___0;
-      handleAssignmentSymbolically("__cil_tmp8", "(+ arr i___0)", & __cil_tmp8, & __cil_tmp8,
+      {
+      exp_outcome = h > l;
+      handleAssignmentSymbolically("exp_outcome", "(> h l)", & exp_outcome, & exp_outcome,
                                    1);
-      __cil_tmp9 = arr + j;
-      handleAssignmentSymbolically("__cil_tmp9", "(+ arr j)", & __cil_tmp9, & __cil_tmp9,
-                                   1);
-      funcEntry("(int *,swap_a,pointer,__cil_tmp8)#(int *,swap_b,pointer,__cil_tmp9)",
-                "swap_t", "swap");
-      swap(__cil_tmp8, __cil_tmp9);
-      funcExit();
+      overall_outcome = (int )getConditionalOutcome(13, exp_outcome);
+      if (overall_outcome) {
+        setBranchInfo(13, 1, 0);
+        setTrueExpr(13, "(> h l)");
+        setFalseExpr(13, "(not (> h l))");
+        addToTree(13, 3, "(> h l)", "(not (> h l))", 12, 1);
+        delete_allVariableTableEntry();
+        tmp___0 = top;
+        handleAssignmentSymbolically("tmp___0", "top", & top, & top, 1);
+        top --;
+        handleAssignmentSymbolically("top", "(- top 1)", & top, & top, 1);
+        h = *(stack + tmp___0);
+        addEntryToVariableTable("*(stack + tmp___0)", tmp___0);
+        add_entryToArraySTable("stack", tmp___0, "stack13", stack + tmp___0, stack + tmp___0,
+                               1);
+        handleAssignmentSymbolically("h", "*(stack + tmp___0)", & *(stack + tmp___0),
+                                     & *(stack + tmp___0), 1);
+        tmp___1 = top;
+        handleAssignmentSymbolically("tmp___1", "top", & top, & top, 1);
+        top --;
+        handleAssignmentSymbolically("top", "(- top 1)", & top, & top, 1);
+        l = *(stack + tmp___1);
+        addEntryToVariableTable("*(stack + tmp___1)", tmp___1);
+        add_entryToArraySTable("stack", tmp___1, "stack14", stack + tmp___1, stack + tmp___1,
+                               1);
+        handleAssignmentSymbolically("l", "*(stack + tmp___1)", & *(stack + tmp___1),
+                                     & *(stack + tmp___1), 1);
+        funcEntry("(int *,partition_arr,array,arr)#(int,partition_l,variable,l)#(int,partition_h,variable,h)",
+                  "partition_x partition_i___0 partition_j partition___cil_tmp7 partition___cil_tmp8 partition___cil_tmp9 partition___cil_tmp10 partition___cil_tmp11",
+                  "partition");
+        tmp___2 = partition(arr, l, h);
+        funcExit();
+        add_entryToSTable("tmp___2", ret_SymValue, ret_ConValue, & tmp___2, 1);
+        p = tmp___2;
+        handleAssignmentSymbolically("p", "tmp___2", & tmp___2, & tmp___2, 1);
+        {
+        exp_outcome = p - 1 > l;
+        handleAssignmentSymbolically("exp_outcome", "(> (- p 1) l)", & exp_outcome,
+                                     & exp_outcome, 1);
+        overall_outcome = (int )getConditionalOutcome(15, exp_outcome);
+        if (overall_outcome) {
+          setBranchInfo(15, 1, 0);
+          setTrueExpr(15, "(> (- p 1) l)");
+          setFalseExpr(15, "(not (> (- p 1) l))");
+          addToTree(15, 4, "(> (- p 1) l)", "(not (> (- p 1) l))", 13, 1);
+          delete_allVariableTableEntry();
+          top ++;
+          handleAssignmentSymbolically("top", "(+ top 1)", & top, & top, 1);
+          *(stack + top) = l;
+          handleArraySymbolically("stack", top, "l", stack + top, stack + top, 1);
+          top ++;
+          handleAssignmentSymbolically("top", "(+ top 1)", & top, & top, 1);
+          *(stack + top) = p - 1;
+          handleArraySymbolically("stack", top, "(- p 1)", stack + top, stack + top,
+                                  1);
+        } else {
+          setBranchInfo(15, 0, 1);
+          setTrueExpr(15, "(> (- p 1) l)");
+          setFalseExpr(15, "(not (> (- p 1) l))");
+          addToTree(15, 4, "(> (- p 1) l)", "(not (> (- p 1) l))", 13, 0);
+          delete_allVariableTableEntry();
+        }
+        }
+        {
+        exp_outcome = p + 1 < h;
+        handleAssignmentSymbolically("exp_outcome", "(< (+ p 1) h)", & exp_outcome,
+                                     & exp_outcome, 1);
+        overall_outcome = (int )getConditionalOutcome(17, exp_outcome);
+        if (overall_outcome) {
+          setBranchInfo(17, 1, 0);
+          setTrueExpr(17, "(< (+ p 1) h)");
+          setFalseExpr(17, "(not (< (+ p 1) h))");
+          addToTree(17, 4, "(< (+ p 1) h)", "(not (< (+ p 1) h))", 13, 1);
+          delete_allVariableTableEntry();
+          top ++;
+          handleAssignmentSymbolically("top", "(+ top 1)", & top, & top, 1);
+          *(stack + top) = p + 1;
+          handleArraySymbolically("stack", top, "(+ p 1)", stack + top, stack + top,
+                                  1);
+          top ++;
+          handleAssignmentSymbolically("top", "(+ top 1)", & top, & top, 1);
+          *(stack + top) = h;
+          handleArraySymbolically("stack", top, "h", stack + top, stack + top, 1);
+        } else {
+          setBranchInfo(17, 0, 1);
+          setTrueExpr(17, "(< (+ p 1) h)");
+          setFalseExpr(17, "(not (< (+ p 1) h))");
+          addToTree(17, 4, "(< (+ p 1) h)", "(not (< (+ p 1) h))", 13, 0);
+          delete_allVariableTableEntry();
+        }
+        }
+      } else {
+        setBranchInfo(13, 0, 1);
+        setTrueExpr(13, "(> h l)");
+        setFalseExpr(13, "(not (> h l))");
+        addToTree(13, 3, "(> h l)", "(not (> h l))", 12, 0);
+        delete_allVariableTableEntry();
+      }
+      }
     } else {
-      addEntryToVariableTable("*(arr + j)", j);
-      add_entryToArraySTable("arr", j, "arr11", arr + j, arr + j, 1);
-      setBranchInfo(8, 0, 1);
-      setTrueExpr(8, "(<= *(arr + j) x)");
-      setFalseExpr(8, "(not (<= *(arr + j) x))");
-      addToTree(8, 2, "(<= *(arr + j) x)", "(not (<= *(arr + j) x))", 7, 0);
+      setBranchInfo(12, 0, 1);
+      setTrueExpr(12, "(> l 0)");
+      setFalseExpr(12, "(not (> l 0))");
+      addToTree(12, 2, "(> l 0)", "(not (> l 0))", 11, 0);
       delete_allVariableTableEntry();
     }
     }
-    j ++;
-    handleAssignmentSymbolically("j", "(+ j 1)", & j, & j, 1);
   } else {
-    setBranchInfo(7, 0, 1);
-    setTrueExpr(7, "(<= j (- h 1))");
-    setFalseExpr(7, "(not (<= j (- h 1)))");
-    addToTree(7, 1, "(<= j (- h 1))", "(not (<= j (- h 1)))", 0, 0);
+    setBranchInfo(11, 0, 1);
+    setTrueExpr(11, "(>= top 0)");
+    setFalseExpr(11, "(not (>= top 0))");
+    addToTree(11, 1, "(>= top 0)", "(not (>= top 0))", 0, 0);
     delete_allVariableTableEntry();
   }
   }
   }
-  __cil_tmp10 = arr + (i___0 + 1);
-  handleAssignmentSymbolically("__cil_tmp10", "(+ arr (+ i___0 1))", & __cil_tmp10,
-                               & __cil_tmp10, 1);
-  __cil_tmp11 = arr + h;
-  handleAssignmentSymbolically("__cil_tmp11", "(+ arr h)", & __cil_tmp11, & __cil_tmp11,
-                               1);
-  funcEntry("(int *,swap_a,pointer,__cil_tmp10)#(int *,swap_b,pointer,__cil_tmp11)",
-            "swap_t", "swap");
-  swap(__cil_tmp10, __cil_tmp11);
-  funcExit();
-  {
-  __cil_tmp7 = i___0 + 1;
-  handleAssignmentSymbolically("__cil_tmp7", "(+ i___0 1)", & __cil_tmp7, & __cil_tmp7,
-                               1);
   __cil_tmp14 = isNotQueueEmpty();
   if (__cil_tmp14) {
     enQueue();
     directPathConditions();
     delete_allSTableEntry();
     delete_allStructTableEntry();
-    partition(arr, l, h);
+    quickSort(arr, l, h);
   } else {
     __cil_tmp14 = startCDG();
     add_entryToSTable("__cil_tmp14", "Function", & __cil_tmp14, & __cil_tmp14, 1);
     if (__cil_tmp14) {
       __cil_tmp14 = getTestCases();
-      partition(arr, l, h);
+      quickSort(arr, l, h);
     }
-  }
-  return (__cil_tmp7);
-  }
-}
-}
-void quickSort(int *quickSort_arr , int quickSort_l , int quickSort_h ) 
-{ 
-  int *quickSort_stack ;
-  unsigned long quickSort___lengthofstack ;
-  void *quickSort_tmp ;
-  int quickSort_top ;
-  int quickSort_tmp___0 ;
-  int quickSort_tmp___1 ;
-  int quickSort_p ;
-  int quickSort_tmp___2 ;
-  char *symName ;
-  void *addr ;
-  char in[15] ;
-
-  {
-  quickSort___lengthofstack = (unsigned long )((quickSort_h - quickSort_l) + 1);
-  handleAssignmentSymbolically("quickSort___lengthofstack", "(+ (- quickSort_h quickSort_l) 1)",
-                               & quickSort___lengthofstack, & quickSort___lengthofstack,
-                               1);
-  quickSort_tmp = __builtin_alloca(sizeof(*quickSort_stack) * quickSort___lengthofstack);
-  add_entryToSTable("quickSort_tmp", "Function", & quickSort_tmp, & quickSort_tmp,
-                    -1);
-  quickSort_stack = (int *)quickSort_tmp;
-  handleAssignmentSymbolically("quickSort_stack", "quickSort_tmp", & quickSort_stack,
-                               & quickSort_stack, 1);
-  quickSort_top = -1;
-  add_entryToSTable("quickSort_top", "Constant", & quickSort_top, & quickSort_top,
-                    1);
-  quickSort_top ++;
-  handleAssignmentSymbolically("quickSort_top", "(+ quickSort_top 1)", & quickSort_top,
-                               & quickSort_top, 1);
-  *(quickSort_stack + quickSort_top) = quickSort_l;
-  handleArraySymbolically("quickSort_stack", quickSort_top, "quickSort_l", quickSort_stack + quickSort_top,
-                          quickSort_stack + quickSort_top, 1);
-  quickSort_top ++;
-  handleAssignmentSymbolically("quickSort_top", "(+ quickSort_top 1)", & quickSort_top,
-                               & quickSort_top, 1);
-  *(quickSort_stack + quickSort_top) = quickSort_h;
-  handleArraySymbolically("quickSort_stack", quickSort_top, "quickSort_h", quickSort_stack + quickSort_top,
-                          quickSort_stack + quickSort_top, 1);
-  {
-  if (quickSort_top >= 0) {
-    if (quickSort_l > 0) {
-      if (quickSort_h > quickSort_l) {
-        quickSort_tmp___0 = quickSort_top;
-        handleAssignmentSymbolically("quickSort_tmp___0", "quickSort_top", & quickSort_top,
-                                     & quickSort_top, 1);
-        quickSort_top --;
-        handleAssignmentSymbolically("quickSort_top", "(- quickSort_top 1)", & quickSort_top,
-                                     & quickSort_top, 1);
-        quickSort_h = *(quickSort_stack + quickSort_tmp___0);
-        addEntryToVariableTable("*(quickSort_stack + quickSort_tmp___0)", quickSort_tmp___0);
-        add_entryToArraySTable("quickSort_stack", quickSort_tmp___0, "quickSort_stack13",
-                               quickSort_stack + quickSort_tmp___0, quickSort_stack + quickSort_tmp___0,
-                               1);
-        handleAssignmentSymbolically("quickSort_h", "*(quickSort_stack + quickSort_tmp___0)",
-                                     & *(quickSort_stack + quickSort_tmp___0), & *(quickSort_stack + quickSort_tmp___0),
-                                     1);
-        quickSort_tmp___1 = quickSort_top;
-        handleAssignmentSymbolically("quickSort_tmp___1", "quickSort_top", & quickSort_top,
-                                     & quickSort_top, 1);
-        quickSort_top --;
-        handleAssignmentSymbolically("quickSort_top", "(- quickSort_top 1)", & quickSort_top,
-                                     & quickSort_top, 1);
-        quickSort_l = *(quickSort_stack + quickSort_tmp___1);
-        addEntryToVariableTable("*(quickSort_stack + quickSort_tmp___1)", quickSort_tmp___1);
-        add_entryToArraySTable("quickSort_stack", quickSort_tmp___1, "quickSort_stack14",
-                               quickSort_stack + quickSort_tmp___1, quickSort_stack + quickSort_tmp___1,
-                               1);
-        handleAssignmentSymbolically("quickSort_l", "*(quickSort_stack + quickSort_tmp___1)",
-                                     & *(quickSort_stack + quickSort_tmp___1), & *(quickSort_stack + quickSort_tmp___1),
-                                     1);
-        quickSort_p = quickSort_tmp___2;
-        handleAssignmentSymbolically("quickSort_p", "quickSort_tmp___2", & quickSort_tmp___2,
-                                     & quickSort_tmp___2, 1);
-        if (quickSort_p - 1 > quickSort_l) {
-          quickSort_top ++;
-          handleAssignmentSymbolically("quickSort_top", "(+ quickSort_top 1)", & quickSort_top,
-                                       & quickSort_top, 1);
-          *(quickSort_stack + quickSort_top) = quickSort_l;
-          handleArraySymbolically("quickSort_stack", quickSort_top, "quickSort_l",
-                                  quickSort_stack + quickSort_top, quickSort_stack + quickSort_top,
-                                  1);
-          quickSort_top ++;
-          handleAssignmentSymbolically("quickSort_top", "(+ quickSort_top 1)", & quickSort_top,
-                                       & quickSort_top, 1);
-          *(quickSort_stack + quickSort_top) = quickSort_p - 1;
-          handleArraySymbolically("quickSort_stack", quickSort_top, "(- quickSort_p 1)",
-                                  quickSort_stack + quickSort_top, quickSort_stack + quickSort_top,
-                                  1);
-        }
-        if (quickSort_p + 1 < quickSort_h) {
-          quickSort_top ++;
-          handleAssignmentSymbolically("quickSort_top", "(+ quickSort_top 1)", & quickSort_top,
-                                       & quickSort_top, 1);
-          *(quickSort_stack + quickSort_top) = quickSort_p + 1;
-          handleArraySymbolically("quickSort_stack", quickSort_top, "(+ quickSort_p 1)",
-                                  quickSort_stack + quickSort_top, quickSort_stack + quickSort_top,
-                                  1);
-          quickSort_top ++;
-          handleAssignmentSymbolically("quickSort_top", "(+ quickSort_top 1)", & quickSort_top,
-                                       & quickSort_top, 1);
-          *(quickSort_stack + quickSort_top) = quickSort_h;
-          handleArraySymbolically("quickSort_stack", quickSort_top, "quickSort_h",
-                                  quickSort_stack + quickSort_top, quickSort_stack + quickSort_top,
-                                  1);
-        }
-      }
-    }
-  }
-  if (quickSort_top >= 0) {
-    if (quickSort_l > 0) {
-      if (quickSort_h > quickSort_l) {
-        quickSort_tmp___0 = quickSort_top;
-        handleAssignmentSymbolically("quickSort_tmp___0", "quickSort_top", & quickSort_top,
-                                     & quickSort_top, 1);
-        quickSort_top --;
-        handleAssignmentSymbolically("quickSort_top", "(- quickSort_top 1)", & quickSort_top,
-                                     & quickSort_top, 1);
-        quickSort_h = *(quickSort_stack + quickSort_tmp___0);
-        addEntryToVariableTable("*(quickSort_stack + quickSort_tmp___0)", quickSort_tmp___0);
-        add_entryToArraySTable("quickSort_stack", quickSort_tmp___0, "quickSort_stack15",
-                               quickSort_stack + quickSort_tmp___0, quickSort_stack + quickSort_tmp___0,
-                               1);
-        handleAssignmentSymbolically("quickSort_h", "*(quickSort_stack + quickSort_tmp___0)",
-                                     & *(quickSort_stack + quickSort_tmp___0), & *(quickSort_stack + quickSort_tmp___0),
-                                     1);
-        quickSort_tmp___1 = quickSort_top;
-        handleAssignmentSymbolically("quickSort_tmp___1", "quickSort_top", & quickSort_top,
-                                     & quickSort_top, 1);
-        quickSort_top --;
-        handleAssignmentSymbolically("quickSort_top", "(- quickSort_top 1)", & quickSort_top,
-                                     & quickSort_top, 1);
-        quickSort_l = *(quickSort_stack + quickSort_tmp___1);
-        addEntryToVariableTable("*(quickSort_stack + quickSort_tmp___1)", quickSort_tmp___1);
-        add_entryToArraySTable("quickSort_stack", quickSort_tmp___1, "quickSort_stack16",
-                               quickSort_stack + quickSort_tmp___1, quickSort_stack + quickSort_tmp___1,
-                               1);
-        handleAssignmentSymbolically("quickSort_l", "*(quickSort_stack + quickSort_tmp___1)",
-                                     & *(quickSort_stack + quickSort_tmp___1), & *(quickSort_stack + quickSort_tmp___1),
-                                     1);
-        quickSort_p = quickSort_tmp___2;
-        handleAssignmentSymbolically("quickSort_p", "quickSort_tmp___2", & quickSort_tmp___2,
-                                     & quickSort_tmp___2, 1);
-        if (quickSort_p - 1 > quickSort_l) {
-          quickSort_top ++;
-          handleAssignmentSymbolically("quickSort_top", "(+ quickSort_top 1)", & quickSort_top,
-                                       & quickSort_top, 1);
-          *(quickSort_stack + quickSort_top) = quickSort_l;
-          handleArraySymbolically("quickSort_stack", quickSort_top, "quickSort_l",
-                                  quickSort_stack + quickSort_top, quickSort_stack + quickSort_top,
-                                  1);
-          quickSort_top ++;
-          handleAssignmentSymbolically("quickSort_top", "(+ quickSort_top 1)", & quickSort_top,
-                                       & quickSort_top, 1);
-          *(quickSort_stack + quickSort_top) = quickSort_p - 1;
-          handleArraySymbolically("quickSort_stack", quickSort_top, "(- quickSort_p 1)",
-                                  quickSort_stack + quickSort_top, quickSort_stack + quickSort_top,
-                                  1);
-        }
-        if (quickSort_p + 1 < quickSort_h) {
-          quickSort_top ++;
-          handleAssignmentSymbolically("quickSort_top", "(+ quickSort_top 1)", & quickSort_top,
-                                       & quickSort_top, 1);
-          *(quickSort_stack + quickSort_top) = quickSort_p + 1;
-          handleArraySymbolically("quickSort_stack", quickSort_top, "(+ quickSort_p 1)",
-                                  quickSort_stack + quickSort_top, quickSort_stack + quickSort_top,
-                                  1);
-          quickSort_top ++;
-          handleAssignmentSymbolically("quickSort_top", "(+ quickSort_top 1)", & quickSort_top,
-                                       & quickSort_top, 1);
-          *(quickSort_stack + quickSort_top) = quickSort_h;
-          handleArraySymbolically("quickSort_stack", quickSort_top, "quickSort_h",
-                                  quickSort_stack + quickSort_top, quickSort_stack + quickSort_top,
-                                  1);
-        }
-      }
-    }
-  }
   }
   return;
 }
@@ -16264,7 +16378,7 @@ void callInstrumentedFun(void)
 
   {
   enQueue();
-  partition(argvar.arr, argvar.l, argvar.h);
+  quickSort(argvar.arr, argvar.l, argvar.h);
 }
 }
 void main(void) 

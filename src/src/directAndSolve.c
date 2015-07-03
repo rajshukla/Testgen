@@ -204,12 +204,17 @@ void directPathConditions() {
   char *snames;
 
   //printf("countNoNewConditionAttempts = %d\n",countNoNewConditionAttempts);
-  if(countTotalConditions() ==0){ orgPercent = 100 ;}
-  //percent =  (countCoveredConditions() * 100)/(2 * countTotalConditions());
+
+  if(!countTotalConditions())
+  {orgPercent = 100 ;
+     percent =100 ; 
+ }
+   else
+  {percent =  (countCoveredConditions() * 100)/(2 * countTotalConditions());
   /*printf("\nCOVERAGE = %f....\n",percent);*/
-  else
-  orgPercent =  (countOrgCoveredConditions() * 100)/(2 * countOrgTotalConditions());
-  printf("COVERAGE = %f....\n",orgPercent);   
+  
+  orgPercent =  (countOrgCoveredConditions() * 100)/(2 * countOrgTotalConditions());}
+  printf("COVERAGE = %f....\n",orgPercent); 
   
   FILE *coveragefile = fopen("src/src/coverage.txt","ab+");
   fprintf(coveragefile, "%.1f\n", orgPercent); 

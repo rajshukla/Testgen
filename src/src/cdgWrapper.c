@@ -449,12 +449,16 @@ int getTestCases() {
   
 
    currPath = newSATPath;
+   if(!countTotalConditions())
+  {orgPercent = 100 ;
+     percent =100 ; 
+    }
+  else
 
-   //percent = (countCoveredConditions() * 100) / (2 * countTotalConditions());
+{   percent = (countCoveredConditions() * 100) / (2 * countTotalConditions());
    /*printf("\nCOVERAGE = %f....\n", percent);*/
-   if(countOrgTotalConditions() ==0){ orgPercent = 100 ;}
-   else
-   orgPercent =  (countOrgCoveredConditions() * 100)/(2 * countOrgTotalConditions());
+
+   orgPercent =  (countOrgCoveredConditions() * 100)/(2 * countOrgTotalConditions());}
    printf("COVERAGE = %f....\n",orgPercent); 
   
    FILE *coveragefile = fopen("src/src/coverage.txt", "ab+");
@@ -491,12 +495,17 @@ if(savePath != NULL)
 
     if (currPath == NULL) {
       print_conditions();
+       if(!countTotalConditions())
+  {orgPercent = 100 ;
+     percent =100 ; 
+ }
+else
 
-      //percent = (countCoveredConditions() * 100) / (2 * countTotalConditions());
+{
+      percent = (countCoveredConditions() * 100) / (2 * countTotalConditions());
       /*printf("\nCOVERAGE = %f....\n", percent);*/
-      if(countOrgTotalConditions() ==0){ orgPercent = 100 ;}
-      else
-      orgPercent =  (countOrgCoveredConditions() * 100)/(2 * countOrgTotalConditions());
+
+      orgPercent =  (countOrgCoveredConditions() * 100)/(2 * countOrgTotalConditions());}
       printf("COVERAGE = %f....\n",orgPercent); 
       
       FILE *coveragefile = fopen("src/src/coverage.txt", "ab+");

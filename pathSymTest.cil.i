@@ -2843,20 +2843,20 @@ void directPathConditions(void)
   int tmp ;
   int tmp___0 ;
   int tmp___1 ;
+  int tmp___2 ;
   FILE *coveragefile ;
-  FILE *tmp___2 ;
+  FILE *tmp___3 ;
   char *fpc ;
-  char *tmp___3 ;
-  int tmp___4 ;
-  void *tmp___5 ;
-  int tmp___6 ;
+  char *tmp___4 ;
+  int tmp___5 ;
+  void *tmp___6 ;
   int tmp___7 ;
   int tmp___8 ;
   int tmp___9 ;
   int tmp___10 ;
   int tmp___11 ;
-  struct treeNode *tmp___12 ;
-  int tmp___13 ;
+  int tmp___12 ;
+  struct treeNode *tmp___13 ;
   int tmp___14 ;
   int tmp___15 ;
   int tmp___16 ;
@@ -2864,24 +2864,23 @@ void directPathConditions(void)
   int tmp___18 ;
   int tmp___19 ;
   int tmp___20 ;
-  struct treeNode *tmp___21 ;
-  char const *tmp___22 ;
-  int tmp___23 ;
+  int tmp___21 ;
+  struct treeNode *tmp___22 ;
+  char const *tmp___23 ;
+  int tmp___24 ;
 
   {
   atleastOneConditionNotCovered = 0;
   i___0 = 1;
-  tmp___1 = countTotalConditions();
-  if (tmp___1 == 0) {
-    orgPercent = (float )100;
-  } else {
-    tmp = countOrgCoveredConditions();
-    tmp___0 = countOrgTotalConditions();
-    orgPercent = (float )((tmp * 100) / (2 * tmp___0));
-  }
+  tmp = countCoveredConditions();
+  tmp___0 = countTotalConditions();
+  percent = (float )((tmp * 100) / (2 * tmp___0));
+  tmp___1 = countOrgCoveredConditions();
+  tmp___2 = countOrgTotalConditions();
+  orgPercent = (float )((tmp___1 * 100) / (2 * tmp___2));
   printf((char const * __restrict )"COVERAGE = %f....\n", (double )orgPercent);
-  tmp___2 = fopen((char const * __restrict )"src/src/coverage.txt", (char const * __restrict )"ab+");
-  coveragefile = tmp___2;
+  tmp___3 = fopen((char const * __restrict )"src/src/coverage.txt", (char const * __restrict )"ab+");
+  coveragefile = tmp___3;
   fprintf((FILE * __restrict )coveragefile, (char const * __restrict )"%.1f\n",
           (double )orgPercent);
   if (queue.totalElements == 0) {
@@ -2892,12 +2891,12 @@ void directPathConditions(void)
     emptyQueue();
     return;
   }
-  tmp___3 = getFrontPathCondition();
-  fpc = tmp___3;
+  tmp___4 = getFrontPathCondition();
+  fpc = tmp___4;
   fpc = (char *)((void *)0);
   free((void *)fpc);
-  tmp___4 = countTotalConditions();
-  if (tmp___4) {
+  tmp___5 = countTotalConditions();
+  if (tmp___5) {
     if (execution_flag == 1) {
       if (previousRunCoverage != percent) {
         countNoNewConditionAttempts = 0;
@@ -2913,8 +2912,8 @@ void directPathConditions(void)
     }
     previousRunCoverage = percent;
   }
-  tmp___5 = malloc((size_t )1500);
-  newPathCondition = (char *)tmp___5;
+  tmp___6 = malloc((size_t )1500);
+  newPathCondition = (char *)tmp___6;
   *newPathCondition = (char)0;
   if (check_position >= 1) {
     if ((unsigned long )(queue.front)->levelptr[check_level + 1] == (unsigned long )((void *)0)) {
@@ -2935,25 +2934,25 @@ void directPathConditions(void)
     if (check_position == 0) {
       while ((unsigned long )curr != (unsigned long )((void *)0)) {
         if (curr->outcome) {
-          tmp___6 = checkForAllConstants(curr->fexp);
-          if (! tmp___6) {
+          tmp___7 = checkForAllConstants(curr->fexp);
+          if (! tmp___7) {
             strcat((char * __restrict )newPathCondition, (char const * __restrict )curr->fexp);
             strcat((char * __restrict )newPathCondition, (char const * __restrict )"##");
           }
-          tmp___7 = getSid(curr);
-          tmp___8 = getBranchInfo(tmp___7, 0);
-          if (! tmp___8) {
+          tmp___8 = getSid(curr);
+          tmp___9 = getBranchInfo(tmp___8, 0);
+          if (! tmp___9) {
             atleastOneConditionNotCovered = 1;
           }
         } else {
-          tmp___9 = checkForAllConstants(curr->texp);
-          if (! tmp___9) {
+          tmp___10 = checkForAllConstants(curr->texp);
+          if (! tmp___10) {
             strcat((char * __restrict )newPathCondition, (char const * __restrict )curr->texp);
             strcat((char * __restrict )newPathCondition, (char const * __restrict )"##");
           }
-          tmp___10 = getSid(curr);
-          tmp___11 = getBranchInfo(tmp___10, 1);
-          if (! tmp___11) {
+          tmp___11 = getSid(curr);
+          tmp___12 = getBranchInfo(tmp___11, 1);
+          if (! tmp___12) {
             atleastOneConditionNotCovered = 1;
           }
         }
@@ -2995,8 +2994,8 @@ void directPathConditions(void)
         return;
       }
     }
-    tmp___12 = getFchild(curr);
-    if ((unsigned long )tmp___12 == (unsigned long )((void *)0)) {
+    tmp___13 = getFchild(curr);
+    if ((unsigned long )tmp___13 == (unsigned long )((void *)0)) {
       check_position ++;
       if ((unsigned long )newPathCondition != (unsigned long )((void *)0)) {
         newPathCondition = (char *)((void *)0);
@@ -3021,25 +3020,25 @@ void directPathConditions(void)
         break;
       }
       if (curr->outcome) {
-        tmp___13 = checkForAllConstants(curr->fexp);
-        if (! tmp___13) {
+        tmp___14 = checkForAllConstants(curr->fexp);
+        if (! tmp___14) {
           strcat((char * __restrict )newPathCondition, (char const * __restrict )curr->fexp);
           strcat((char * __restrict )newPathCondition, (char const * __restrict )"##");
         }
-        tmp___14 = getSid(curr);
-        tmp___15 = getBranchInfo(tmp___14, 0);
-        if (! tmp___15) {
+        tmp___15 = getSid(curr);
+        tmp___16 = getBranchInfo(tmp___15, 0);
+        if (! tmp___16) {
           atleastOneConditionNotCovered = 1;
         }
       } else {
-        tmp___16 = checkForAllConstants(curr->texp);
-        if (! tmp___16) {
+        tmp___17 = checkForAllConstants(curr->texp);
+        if (! tmp___17) {
           strcat((char * __restrict )newPathCondition, (char const * __restrict )curr->texp);
           strcat((char * __restrict )newPathCondition, (char const * __restrict )"##");
         }
-        tmp___17 = getSid(curr);
-        tmp___18 = getBranchInfo(tmp___17, 1);
-        if (! tmp___18) {
+        tmp___18 = getSid(curr);
+        tmp___19 = getBranchInfo(tmp___18, 1);
+        if (! tmp___19) {
           atleastOneConditionNotCovered = 1;
         }
       }
@@ -3048,8 +3047,8 @@ void directPathConditions(void)
     curr = parent;
     while ((unsigned long )curr != (unsigned long )((void *)0)) {
       if (curr->outcome) {
-        tmp___20 = checkForAllConstants(curr->texp);
-        if (tmp___20) {
+        tmp___21 = checkForAllConstants(curr->texp);
+        if (tmp___21) {
           goto _L___1;
         } else {
           strcat((char * __restrict )newPathCondition, (char const * __restrict )curr->texp);
@@ -3057,8 +3056,8 @@ void directPathConditions(void)
         }
       } else {
         _L___1:
-        tmp___19 = checkForAllConstants(curr->fexp);
-        if (! tmp___19) {
+        tmp___20 = checkForAllConstants(curr->fexp);
+        if (! tmp___20) {
           strcat((char * __restrict )newPathCondition, (char const * __restrict )curr->fexp);
           strcat((char * __restrict )newPathCondition, (char const * __restrict )"##");
         }
@@ -3066,8 +3065,8 @@ void directPathConditions(void)
       curr = getNodeParent(curr);
     }
     curr = (queue.front)->levelptr[check_level];
-    tmp___21 = getNextnode(curr);
-    if ((unsigned long )tmp___21 == (unsigned long )((void *)0)) {
+    tmp___22 = getNextnode(curr);
+    if ((unsigned long )tmp___22 == (unsigned long )((void *)0)) {
       check_level ++;
       check_position = 1;
     } else {
@@ -3080,14 +3079,14 @@ void directPathConditions(void)
       getPrint();
       writeProgramSVariables();
       if ((unsigned long )newPathCondition != (unsigned long )((void *)0)) {
-        tmp___22 = (char const *)newPathCondition;
+        tmp___23 = (char const *)newPathCondition;
       } else {
-        tmp___22 = "null";
+        tmp___23 = "null";
       }
-      printf((char const * __restrict )"Path Condition : %s\n", tmp___22);
+      printf((char const * __restrict )"Path Condition : %s\n", tmp___23);
       writeConditionsToFile(newPathCondition);
-      tmp___23 = getOutputFromConstraintSolver();
-      if (! tmp___23) {
+      tmp___24 = getOutputFromConstraintSolver();
+      if (! tmp___24) {
         remove("src/src/printTest.smt");
         newPathCondition = (char *)((void *)0);
         free((void *)newPathCondition);
@@ -15558,36 +15557,36 @@ int getTestCases(void)
   int tmp ;
   int tmp___0 ;
   int tmp___1 ;
+  int tmp___2 ;
   FILE *coveragefile ;
-  FILE *tmp___2 ;
-  int tmp___3 ;
+  FILE *tmp___3 ;
   int tmp___4 ;
   int tmp___5 ;
+  int tmp___6 ;
+  int tmp___7 ;
   FILE *coveragefile___0 ;
-  FILE *tmp___6 ;
+  FILE *tmp___8 ;
   FILE *fp ;
-  FILE *tmp___7 ;
-  int tmp___8 ;
-  int tmp___9 ;
+  FILE *tmp___9 ;
   int tmp___10 ;
   int tmp___11 ;
   int tmp___12 ;
+  int tmp___13 ;
+  int tmp___14 ;
 
   {
   atleastOneConditionNotCovered = 0;
   i___0 = 0;
   currPath = newSATPath;
-  tmp___1 = countOrgTotalConditions();
-  if (tmp___1 == 0) {
-    orgPercent = (float )100;
-  } else {
-    tmp = countOrgCoveredConditions();
-    tmp___0 = countOrgTotalConditions();
-    orgPercent = (float )((tmp * 100) / (2 * tmp___0));
-  }
+  tmp = countCoveredConditions();
+  tmp___0 = countTotalConditions();
+  percent = (float )((tmp * 100) / (2 * tmp___0));
+  tmp___1 = countOrgCoveredConditions();
+  tmp___2 = countOrgTotalConditions();
+  orgPercent = (float )((tmp___1 * 100) / (2 * tmp___2));
   printf((char const * __restrict )"COVERAGE = %f....\n", (double )orgPercent);
-  tmp___2 = fopen((char const * __restrict )"src/src/coverage.txt", (char const * __restrict )"ab+");
-  coveragefile = tmp___2;
+  tmp___3 = fopen((char const * __restrict )"src/src/coverage.txt", (char const * __restrict )"ab+");
+  coveragefile = tmp___3;
   fprintf((FILE * __restrict )coveragefile, (char const * __restrict )"%.1f\n",
           (double )orgPercent);
   if ((unsigned long )savePath != (unsigned long )((void *)0)) {
@@ -15609,17 +15608,15 @@ int getTestCases(void)
     currPath = currPath->next;
     if ((unsigned long )currPath == (unsigned long )((void *)0)) {
       print_conditions();
-      tmp___5 = countOrgTotalConditions();
-      if (tmp___5 == 0) {
-        orgPercent = (float )100;
-      } else {
-        tmp___3 = countOrgCoveredConditions();
-        tmp___4 = countOrgTotalConditions();
-        orgPercent = (float )((tmp___3 * 100) / (2 * tmp___4));
-      }
+      tmp___4 = countCoveredConditions();
+      tmp___5 = countTotalConditions();
+      percent = (float )((tmp___4 * 100) / (2 * tmp___5));
+      tmp___6 = countOrgCoveredConditions();
+      tmp___7 = countOrgTotalConditions();
+      orgPercent = (float )((tmp___6 * 100) / (2 * tmp___7));
       printf((char const * __restrict )"COVERAGE = %f....\n", (double )orgPercent);
-      tmp___6 = fopen((char const * __restrict )"src/src/coverage.txt", (char const * __restrict )"ab+");
-      coveragefile___0 = tmp___6;
+      tmp___8 = fopen((char const * __restrict )"src/src/coverage.txt", (char const * __restrict )"ab+");
+      coveragefile___0 = tmp___8;
       fprintf((FILE * __restrict )coveragefile___0, (char const * __restrict )"%.1f\n",
               (double )orgPercent);
       CDG_Module = 0;
@@ -15632,8 +15629,8 @@ int getTestCases(void)
   remove("src/src/printTest.smt");
   getPrint();
   writeProgramSVariables();
-  tmp___7 = fopen((char const * __restrict )"src/src/printTest.smt", (char const * __restrict )"a");
-  fp = tmp___7;
+  tmp___9 = fopen((char const * __restrict )"src/src/printTest.smt", (char const * __restrict )"a");
+  fp = tmp___9;
   if ((unsigned long )fp == (unsigned long )((void *)0)) {
     printf((char const * __restrict )"Error opening file!\n");
     exit(1);
@@ -15642,25 +15639,25 @@ int getTestCases(void)
     if (curr->id == 0) {
       break;
     }
-    tmp___12 = getOutcome(curr);
-    if (tmp___12) {
-      tmp___8 = checkForAllConstants(curr->expr);
-      if (! tmp___8) {
-        fprintf((FILE * __restrict )fp, (char const * __restrict )"  :assumption %s\n",
-                curr->expr);
-      }
-      tmp___9 = getBranchInfo(curr->id, 1);
-      if (! tmp___9) {
-        atleastOneConditionNotCovered = 1;
-      }
-    } else {
+    tmp___14 = getOutcome(curr);
+    if (tmp___14) {
       tmp___10 = checkForAllConstants(curr->expr);
       if (! tmp___10) {
         fprintf((FILE * __restrict )fp, (char const * __restrict )"  :assumption %s\n",
                 curr->expr);
       }
-      tmp___11 = getBranchInfo(curr->id, 0);
+      tmp___11 = getBranchInfo(curr->id, 1);
       if (! tmp___11) {
+        atleastOneConditionNotCovered = 1;
+      }
+    } else {
+      tmp___12 = checkForAllConstants(curr->expr);
+      if (! tmp___12) {
+        fprintf((FILE * __restrict )fp, (char const * __restrict )"  :assumption %s\n",
+                curr->expr);
+      }
+      tmp___13 = getBranchInfo(curr->id, 0);
+      if (! tmp___13) {
         atleastOneConditionNotCovered = 1;
       }
     }
@@ -15790,6 +15787,28 @@ void stackPeek(Stack *s , void *element )
 #pragma merger("0","./ipaRecursive.i","-g,-g")
 #pragma merger("0","./pathSymTest.i","-g,-g")
 extern int scanf(char const * __restrict __format , ...) __asm__("__isoc99_scanf") ;
+int foo(int foo_n )
+{
+  int foo_res ;
+  char *symName ;
+  void *addr ;
+  char in[15] ;
+
+  {
+  if (foo_n < 0) {
+    foo_res = foo_n * -1;
+    handleAssignmentSymbolically("foo_res", "(* foo_n -1)", & foo_res, & foo_res,
+                                 1);
+  } else {
+    foo_res = foo_n;
+    handleAssignmentSymbolically("foo_res", "foo_n", & foo_n, & foo_n, 1);
+  }
+  {
+  mapConcolicValues("foo_res", & foo_res);
+  return (foo_res);
+  }
+}
+}
 void createCDG(void)
 {
 
@@ -15797,12 +15816,15 @@ void createCDG(void)
   {
   addtoCDGnode(0, 0, 0);
   addtoCDGnode(1, 0, 1);
-  setArray(1, "(< n 0)");
-  addtoCDGnode(2, 1, 1);
-  addtoCDGnode(3, 1, 0);
-  addtoCDGnode(4, 0, 1);
-  addtoCDGnode(4, 0, 1);
+  addtoCDGnode(2, 0, 1);
+  setArray(2, "(>= a 0)");
+  addtoCDGnode(3, 2, 1);
+  addtoCDGnode(4, 2, 0);
   addtoCDGnode(5, 0, 1);
+  addtoCDGnode(5, 0, 1);
+  addtoCDGnode(6, 0, 1);
+  addtoCDGnode(7, 0, 1);
+  addtoCDGnode(8, 0, 1);
 }
 }
 void isCopyOfHolder(void)
@@ -15818,108 +15840,75 @@ void createSidTable(void)
 
 
   {
-  add_condition(1, "(< n 0)", "(not (< n 0))", 0, 0);
+  add_condition(2, "(>= a 0)", "(not (>= a 0))", 0, 0);
 }
 }
 struct arguments {
-   int n ;
+   int a ;
 };
 struct arguments argvar ;
-int foo(int n )
+int main1(int a )
 {
-  int res ;
+  int b ;
+  int __cil_tmp3 ;
   int exp_outcome ;
   int overall_outcome ;
-  int __cil_tmp5 ;
-  char *__cil_tmp6 ;
+  int __cil_tmp6 ;
+  char *__cil_tmp7 ;
   char *symName ;
   void *addr ;
   char in[15] ;
 
   {
-  __cil_tmp6 = malloc(100 * sizeof(char ));
-  add_entryToSTable("__cil_tmp6", "Function", & __cil_tmp6, & __cil_tmp6, -1);
-  sprintf(__cil_tmp6, "\t%d\n", n);
-  printTestCase("pathSymTest_foo_1435830391.tc", __cil_tmp6);
-  add_entryToSTable("n", "s0", & n, & n, 1);
+  __cil_tmp7 = malloc(100 * sizeof(char ));
+  add_entryToSTable("__cil_tmp7", "Function", & __cil_tmp7, & __cil_tmp7, -1);
+  sprintf(__cil_tmp7, "\t%d\n", a);
+  printTestCase("pathSymTest_main1_1435904910.tc", __cil_tmp7);
+  add_entryToSTable("a", "s0", & a, & a, 1);
+
   {
-  exp_outcome = n < 0;
-  handleAssignmentSymbolically("exp_outcome", "(< n 0)", & exp_outcome, & exp_outcome,
+  exp_outcome = a >= 0;
+  handleAssignmentSymbolically("exp_outcome", "(>= a 0)", & exp_outcome, & exp_outcome,
                                1);
-  overall_outcome = (int )getConditionalOutcome(1, exp_outcome);
+  overall_outcome = (int )getConditionalOutcome(2, exp_outcome);
   if (overall_outcome) {
-    setBranchInfo(1, 1, 0);
-    setTrueExpr(1, "(< n 0)");
-    setFalseExpr(1, "(not (< n 0))");
-    addToTree(1, 1, "(< n 0)", "(not (< n 0))", 0, 1);
+    setBranchInfo(2, 1, 0);
+    setTrueExpr(2, "(>= a 0)");
+    setFalseExpr(2, "(not (>= a 0))");
+    addToTree(2, 1, "(>= a 0)", "(not (>= a 0))", 0, 1);
     delete_allVariableTableEntry();
-    res = n * -1;
-    handleAssignmentSymbolically("res", "(* n -1)", & res, & res, 1);
+    b = 1;
+    add_entryToSTable("b", "Constant", & b, & b, 1);
   } else {
-    setBranchInfo(1, 0, 1);
-    setTrueExpr(1, "(< n 0)");
-    setFalseExpr(1, "(not (< n 0))");
-    addToTree(1, 1, "(< n 0)", "(not (< n 0))", 0, 0);
+    setBranchInfo(2, 0, 1);
+    setTrueExpr(2, "(>= a 0)");
+    setFalseExpr(2, "(not (>= a 0))");
+    addToTree(2, 1, "(>= a 0)", "(not (>= a 0))", 0, 0);
     delete_allVariableTableEntry();
-    res = n;
-    handleAssignmentSymbolically("res", "n", & n, & n, 1);
+    b = -1;
+    add_entryToSTable("b", "Constant", & b, & b, 1);
   }
   }
-  __cil_tmp5 = isNotQueueEmpty();
-  if (__cil_tmp5) {
+  {
+  __cil_tmp3 = 0;
+  add_entryToSTable("__cil_tmp3", "Constant", & __cil_tmp3, & __cil_tmp3, 1);
+  __cil_tmp6 = isNotQueueEmpty();
+  if (__cil_tmp6) {
     enQueue();
     directPathConditions();
     delete_allSTableEntry();
     delete_allStructTableEntry();
-    foo(n);
+    main1(a);
   } else {
-    __cil_tmp5 = startCDG();
-    add_entryToSTable("__cil_tmp5", "Function", & __cil_tmp5, & __cil_tmp5, 1);
-    if (__cil_tmp5) {
-      __cil_tmp5 = getTestCases();
-      foo(n);
+    __cil_tmp6 = startCDG();
+    add_entryToSTable("__cil_tmp6", "Function", & __cil_tmp6, & __cil_tmp6, 1);
+    if (__cil_tmp6) {
+      __cil_tmp6 = getTestCases();
+      main1(a);
     }
   }
-  return (res);
-}
-}
-int main1(void)
-{
-  int a ;
-  int b ;
-
-  {
-  {
-  exp_outcome = n < 0;
-  handleAssignmentSymbolically("exp_outcome", "(< n 0)", & exp_outcome, & exp_outcome,
-                               1);
-  overall_outcome = (int )getConditionalOutcome(1, exp_outcome);
-  if (overall_outcome) {
-    setBranchInfo(1, 1, 0);
-    setTrueExpr(1, "(< n 0)");
-    setFalseExpr(1, "(not (< n 0))");
-    addToTree(1, 1, "(< n 0)", "(not (< n 0))", 0, 1);
-    delete_allVariableTableEntry();
-    res = n * -1;
-    handleAssignmentSymbolically("res", "(* n -1)", & res, & res, 1);
-  } else {
-    setBranchInfo(1, 0, 1);
-    setTrueExpr(1, "(< n 0)");
-    setFalseExpr(1, "(not (< n 0))");
-    addToTree(1, 1, "(< n 0)", "(not (< n 0))", 0, 0);
-    delete_allVariableTableEntry();
-    res = n;
-    handleAssignmentSymbolically("res", "n", & n, & n, 1);
+  return (__cil_tmp3);
   }
-  }
-  return (res);
-  scanf((char const * __restrict )"%d", & a);
-  if (a >= 0) {
-    b = 1;
-  } else {
-    b = -1;
-  }
-  return (0);
 }
 }
 void getPrint(void)
@@ -15936,18 +15925,18 @@ void callInstrumentedFun(void)
 
   {
   enQueue();
-  foo(argvar.n);
+  main1(argvar.a);
 }
 }
 void main(void)
 {
-  int n ;
+  int a ;
   int temp ;
   int __cil_tmp2 ;
 
   {
   __cil_tmp2 = rand();
-  argvar.n = __cil_tmp2 % 20;
+  argvar.a = __cil_tmp2 % 20;
   initSID();
   isCopyOfHolder();
   createCDG();
